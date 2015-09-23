@@ -52,10 +52,10 @@ public class MyFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.headImage)
-    private void chooseHeadImage(){
-        MultiPictureSelectorActivity.startSingleActivity(getActivity(), MultiPictureSelectorActivity.REQUEST_CODE);
-    }
+//    @OnClick(R.id.headImage)
+//    private void chooseHeadImage(){
+//        MultiPictureSelectorActivity.startSingleActivity(getActivity(), MultiPictureSelectorActivity.REQUEST_CODE);
+//    }
 
     private void setHeadImage(String path){
 

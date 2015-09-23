@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.application.BaseActivity;
 import com.zlk.bigdemo.application.main.fragment.MyFragment;
+import com.zlk.bigdemo.application.widget.selector.MultiPictureSelectorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,11 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
 
 
+    public static String TITLE = "title";
     List<Fragment>        mTabs         = new ArrayList<Fragment>();
     FragmentPagerAdapter  fragmentPagerAdapter;
     String[]              fragmentTitle = new String[] { "tab1", "tab2", "tab3" };
+    String currentFragment = fragmentTitle[0];
 
     @Bind(R.id.id_viewpager) ViewPager mViwePager;
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -62,8 +65,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
                 return true;
             }
         });
-
     }
+
+
     /**
      * 初始化fragment的信息
      */
@@ -72,21 +76,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         //会话列表页面
         MyFragment myFragment = new MyFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(myFragment.TITLE, fragmentTitle[0]);
+        bundle.putString(TITLE, fragmentTitle[0]);
         myFragment.setArguments(bundle);
         mTabs.add(myFragment);
 
         //朋友列表页面
         MyFragment friendListFragment = new MyFragment();
         bundle.clear();
-        bundle.putString(friendListFragment.TITLE, fragmentTitle[1]);
+        bundle.putString(TITLE, fragmentTitle[1]);
         friendListFragment.setArguments(bundle);
         mTabs.add(friendListFragment);
 
         //发现朋友圈页面
         MyFragment discoverFragment = new MyFragment();
         bundle.clear();
-        bundle.putString(discoverFragment.TITLE, fragmentTitle[2]);
+        bundle.putString(TITLE, fragmentTitle[2]);
         discoverFragment.setArguments(bundle);
         mTabs.add(discoverFragment);
 
@@ -126,14 +130,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
 
         switch (v.getId()) {
             case R.id.imageView1:
+                if (currentFragment.equals(fragmentTitle[0])){
+                    return;
+                }
+                currentFragment = fragmentTitle[0];
                 mViwePager.setCurrentItem(0, false);
                 imageViews.get(0).setBackgroundColor(getResources().getColor(R.color.footbar_press));
                 break;
             case R.id.imageView2:
+                if (currentFragment.equals(fragmentTitle[1])){
+                    return;
+                }
+                currentFragment = fragmentTitle[1];
                 mViwePager.setCurrentItem(1, false);
                 imageViews.get(1).setBackgroundColor(getResources().getColor(R.color.footbar_press));
                 break;
             case R.id.imageView3:
+                if (currentFragment.equals(fragmentTitle[1])){
+                    return;
+                }
+                currentFragment = fragmentTitle[2];
                 mViwePager.setCurrentItem(2, false);
                 imageViews.get(2).setBackgroundColor(getResources().getColor(R.color.footbar_press));
                 break;
@@ -182,4 +198,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_settings:
+
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//    private void changeHeadImage(){
+//        MultiPictureSelectorActivity.startSingleActivity(getActivity(), MultiPictureSelectorActivity.REQUEST_CODE);
+//    }
 }

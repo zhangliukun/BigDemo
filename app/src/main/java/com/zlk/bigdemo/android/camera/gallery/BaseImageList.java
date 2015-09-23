@@ -23,7 +23,7 @@ import android.net.Uri;
 
 import com.zlk.bigdemo.android.camera.ImageManager;
 import com.zlk.bigdemo.android.camera.Util;
-import com.zlk.bigdemo.application.utils.LogUtil;
+import com.zlk.bigdemo.app.utils.LogUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -5,7 +5,7 @@
     android:background="#ffffff"
     android:descendantFocusability="blocksDescendants" >
 
-    <com.dragon.freeza.image.MagicImageView
+    <com.zlk.bigdemo.freeza.image.MagicImageView
         android:id="@+id/multi_picture_select_menu_thumbmail"
         android:layout_width="80dp"
         android:layout_height="80dp"

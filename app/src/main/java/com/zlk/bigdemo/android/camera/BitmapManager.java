@@ -22,7 +22,7 @@ import android.graphics.BitmapFactory;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 
-import com.zlk.bigdemo.application.utils.LogUtil;
+import com.zlk.bigdemo.app.utils.LogUtil;
 
 import java.io.FileDescriptor;
 import java.util.WeakHashMap;

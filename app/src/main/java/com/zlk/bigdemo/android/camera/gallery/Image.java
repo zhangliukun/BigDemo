@@ -26,7 +26,7 @@ import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 
 import com.zlk.bigdemo.android.camera.Util;
-import com.zlk.bigdemo.application.utils.LogUtil;
+import com.zlk.bigdemo.app.utils.LogUtil;
 
 import java.io.IOException;
 

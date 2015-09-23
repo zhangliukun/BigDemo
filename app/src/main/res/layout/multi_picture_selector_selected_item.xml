@@ -25,7 +25,7 @@
             android:textSize="@dimen/text_size_media_small"/>
     </LinearLayout>
 
-    <com.dragon.freeza.image.MagicImageView
+    <com.zlk.bigdemo.freeza.image.MagicImageView
         android:id="@+id/image_item"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -1,6 +1,7 @@
 package com.zlk.bigdemo.freeza;
 
 import android.app.Application;
+import android.util.Log;
 
 public class BaseApplication extends Application {
 
@@ -18,6 +19,11 @@ public class BaseApplication extends Application {
 	}
 	
 	public static BaseApplication getInstance(){
+		if (sInstance==null){
+			Log.i("application","null");
+			sInstance = new BaseApplication();
+		}
+
 		return sInstance;
 	}
 

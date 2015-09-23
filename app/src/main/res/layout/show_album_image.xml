@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:fitsSystemWindows="true" >
+
+    <com.shinemo.qoffice.widget.FixedViewPage
+        android:id="@+id/show_album_image_pageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/show_album_title"
+        style="@style/title_layout_style" >
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/back_style" />
+
+        <TextView
+            android:id="@+id/show_album_count"
+            style="@style/title_textview_style" />
+        
+        <Button
+            android:id="@+id/show_album_complete"
+            style="@style/title_right_style2"
+            android:text="@string/complete" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/show_album_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#aa000000" >
+
+        <TextView
+            android:id="@+id/show_album_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:drawableLeft="@drawable/album_check_select"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:drawablePadding="5dp"
+            android:text="@string/select"/>
+    </RelativeLayout>
+
+</RelativeLayout>

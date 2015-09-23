@@ -1,5 +1,124 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_size_media_small">11sp</dimen>
+    <dimen name="picture_select_padding">3dp</dimen>
+    <dimen name="activity_horizontal_margin">15dp</dimen>
+    <dimen name="title_height">50dp</dimen>
+    <dimen name="bottom_height">100dp</dimen>
+    <dimen name="text_size_big">24sp</dimen>
+    <dimen name="text_size_big_small">22sp</dimen>
+    <dimen name="text_size_media_big">18sp</dimen>
+    <dimen name="text_size_media">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_small_media">11sp</dimen>
+    <dimen name="text_size_small_small">10sp</dimen>
+    <dimen name="size_avatar">50dp</dimen>
+    <dimen name="avatar_margin">20dp</dimen>
+    <dimen name="chat_avatar_size">38dp</dimen>
+    <dimen name="group_avatar_size">50dp</dimen>
+    <dimen name="group_avatar_margin">15dp</dimen>
+    <dimen name="group_member_margin">6dp</dimen>
+    <dimen name="group_member_padding">9dp</dimen>
+    <dimen name="chat_picture_size">140dp</dimen>
+    <dimen name="chat_picture_min_size">43dp</dimen>
+    <dimen name="search_icon_size">18.6dip</dimen>
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <dimen name="updatebar_height">52.0dip</dimen>
+    <dimen name="updatebar_content_height">50.0dip</dimen>
+    <dimen name="updatebar_padding">10.0dip</dimen>
+    <dimen name="font_third_grade">12sp</dimen>
+    <dimen name="youban_list_content_smile">20dip</dimen>
+
+    <dimen name="pull_down_toast_size">113dip</dimen>
+    <dimen name="column_up_unit_margin">10dip</dimen>
+    <integer name="num_cols">1</integer>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="gallery_item_width">-80dp</dimen>
+    <dimen name="gallery_spacing">-80dp</dimen>
+    <dimen name="vote_list_item_text_width">160dp</dimen>
+    <dimen name="done_label_size">14sp</dimen>
+    <dimen name="date_picker_component_width">270dip</dimen>
+    <dimen name="date_picker_header_height">30dip</dimen>
+    <dimen name="selected_calendar_layout_height">155dip</dimen>
+    <dimen name="date_picker_view_animator_height">270dip</dimen>
+    <dimen name="month_list_item_header_height">50dip</dimen>
+    <dimen name="month_day_label_text_size">10sp</dimen>
+    <dimen name="day_number_select_circle_radius">16dip</dimen>
+    <dimen name="month_select_circle_radius">45dip</dimen>
+    <dimen name="selected_date_year_size">30dip</dimen>
+    <dimen name="selected_date_day_size">75dip</dimen>
+    <dimen name="selected_date_month_size">30dip</dimen>
+    <dimen name="date_picker_header_text_size">14dip</dimen>
+    <dimen name="month_label_size">16sp</dimen>
+    <dimen name="day_number_size">16sp</dimen>
+    <dimen name="year_label_height">64dip</dimen>
+    <dimen name="year_label_text_size">22dip</dimen>
+    <dimen name="time_label_size">60sp</dimen>
+    <dimen name="extra_time_label_margin">-30dp</dimen>
+    <dimen name="ampm_label_size">16sp</dimen>
+    <dimen name="ampm_left_padding">6dip</dimen>
+    <dimen name="separator_padding">4dip</dimen>
+    <dimen name="header_height">96dip</dimen>
+    <dimen name="picker_dimen">270dip</dimen>
+    <dimen name="minimum_margin_sides">48dip</dimen>
+    <dimen name="minimum_margin_top_bottom">24dip</dimen>
+    <dimen name="chat_disk_width">240dip</dimen>
+
+    <dimen name="calendar_month_height">24dp</dimen>
+    <dimen name="calendar_line_width">1dp</dimen>
+    <dimen name="calendar_header_height">28dp</dimen>
+    <dimen name="calendar_left_padding">4dp</dimen>
+    <dimen name="calendar_top_padding">18dp</dimen>
+    <dimen name="calendar_week_time_width">20dp</dimen>
+    <dimen name="calendar_week_time_height">135dp</dimen>
+    <dimen name="calendar_week_cell_height">45dp</dimen>
+
+
+
+    <item name="circle_radius_multiplier" format="float" type="string">0.82</item>
+    <item name="circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>
+    <item name="selection_radius_multiplier" format="float" type="string">0.16</item>
+    <item name="ampm_circle_radius_multiplier" format="float" type="string">0.19</item>
+    <item name="numbers_radius_multiplier_normal" format="float" type="string">0.81</item>
+    <item name="numbers_radius_multiplier_inner" format="float" type="string">0.60</item>
+    <item name="numbers_radius_multiplier_outer" format="float" type="string">0.83</item>
+    <item name="text_size_multiplier_normal" format="float" type="string">0.17</item>
+    <item name="text_size_multiplier_inner" format="float" type="string">0.14</item>
+    <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
+
+    <!-- 顶部 导航栏高度 -->
+    <dimen name="topbar_height">50dp</dimen>
+
+    <!-- 应用边距尺寸 -->
+    <!-- 30 ~ 32px -->
+    <dimen name="big_space">18dp</dimen>
+    <!-- 20 ~ 24px -->
+    <dimen name="middle_space">14dp</dimen>
+    <!-- 14 ~ 18px -->
+    <dimen name="small_space">8dp</dimen>
+    <!-- <14px -->
+    <dimen name="tiny_space">4dp</dimen>
+
+    <!-- 顶部 导航栏标题字体大小 -->
+    <dimen name="topbar_textSize">20sp</dimen>
+    <!-- 顶部 导航栏标题字体大小 -->
+    <dimen name="topbar_right_textSize">18sp</dimen>
+    <dimen name="rippleStrokeWidth">2dp</dimen>
+    <dimen name="rippleRadius">32dp</dimen>
+    <dimen name="margin_chat_activity">5dp</dimen>
+    <dimen name="smily_column_width">25dip</dimen>
+    <dimen name="smily_column_min_width">16dip</dimen>
+    <dimen name="smile_height">200dp</dimen>
+    <dimen name="close_umeeting_btn_wigth">85dp</dimen>
+
+
+    <dimen name="schedule_alert_time_item_width">74dp</dimen>
+    <dimen name="schedule_gv_item_height">50dp</dimen>
+    <dimen name="schedule_alert_time_gv_width">400dp</dimen>
+    <dimen name="schedule_alert_type_gv_width">240dp</dimen>
+    <dimen name="hand_lock_head_size">60dp</dimen>
+
 </resources>

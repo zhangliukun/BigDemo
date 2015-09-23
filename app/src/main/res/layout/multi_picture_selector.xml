@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000" >
+
+    <RelativeLayout
+        android:id="@+id/multi_title_layout"
+        style="@style/title_layout_style" >
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/back_style" />
+
+        <TextView
+            style="@style/title_textview_style"
+            android:text="@string/select_album" />
+
+        <Button
+            android:id="@+id/picture_selector_save"
+            style="@style/title_right_style2"/>
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/multi_picture_select_albums"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/multi_title_layout"
+        android:fadingEdgeLength="0dp"
+        android:horizontalSpacing="@dimen/picture_select_padding"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:overScrollMode="never"
+        android:verticalSpacing="3dp" />
+
+    <View
+        android:id="@+id/multi_menu_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/multi_title_layout"
+        android:layout_marginBottom="50dp"
+        android:background="#000000"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/multi_picture_select_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/multi_title_layout"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="80dp"
+        android:cacheColorHint="#00000000"
+        android:divider="#eeeeee"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        android:saveEnabled="false"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#aa000000" >
+
+        <TextView
+            android:id="@+id/multi_select"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/multi_picture_all"
+            android:drawableRight="@drawable/xx_plus_sj"
+            android:drawablePadding="2dp"
+            android:textColor="@color/material_blue_grey_800"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/multi_look"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/pre_view"
+            android:textColor="@color/material_blue_grey_800"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

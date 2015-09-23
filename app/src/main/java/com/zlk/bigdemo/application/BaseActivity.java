@@ -25,8 +25,10 @@ import android.widget.Toast;
 
 import com.zlk.bigdemo.R;
 
+import butterknife.ButterKnife;
 
-public class BaseActivity extends AppCompatActivity implements OnClickListener {
+
+public class BaseActivity extends AppCompatActivity{
 
     private ProgressDialog mProgressDialog;
 
@@ -108,6 +110,7 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     protected void showSoftKeyBoard(Activity avitvity, View view) {
@@ -183,11 +186,4 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener {
         toast.show();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-        }
-    }
 }

@@ -1,8 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/AppBaseTheme">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- toolbar（actionbar）颜色 -->
+        <item name="colorPrimary">@color/toolbar_bg</item>
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@color/state_title_bg</item>
+        <!-- 窗口的背景颜色 -->
+        <item name="android:windowBackground">@color/window_bg</item>
+    </style>
+
+
+    <!--满宽分割线-->
+    <style name="divider_for_note_martch_weight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#b4b4b4</item>
     </style>
 
 </resources>

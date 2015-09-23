@@ -10,8 +10,6 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        // Enabling multidex support.
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,10 +17,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

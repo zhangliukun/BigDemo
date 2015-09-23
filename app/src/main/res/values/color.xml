@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+
+    <color name="toolbar_bg">#4876FF</color>
+    <color name="state_title_bg">#3A5FCD</color>
+    <color name="window_bg">#ffffff</color>
+    <color name="footbar_press">#FF48B2CD</color>
+</resources>

@@ -41,15 +41,22 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     String[]              fragmentTitle = new String[] { "tab1", "tab2", "tab3" };
     String currentFragment = fragmentTitle[0];
 
-    @Bind(R.id.id_viewpager) ViewPager mViwePager;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.id_viewpager)
+    ViewPager mViwePager;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
     @Bind({ R.id.imageView1, R.id.imageView2, R.id.imageView3 })
     List<ImageView> imageViews;
+
+    @OnClick({ R.id.imageView1, R.id.imageView2, R.id.imageView3 })
+    public void clickTabView(ImageView imageView) {
+        clickTab(imageView);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
@@ -78,6 +85,28 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     public void initDatas()
     {
+        addFragmentTabs();
+        // 定义viewpager的适配器，使得可以滑动操作
+        fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public int getCount() {
+                return mTabs.size();
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return mTabs.get(position);
+            }
+        };
+
+        mViwePager.setAdapter(fragmentPagerAdapter);
+        mViwePager.addOnPageChangeListener(this);
+    }
+
+    /**
+     * 增加fragment的tab
+     */
+    private void addFragmentTabs(){
         //会话列表页面
         MyFragment myFragment = new MyFragment();
         Bundle bundle = new Bundle();
@@ -98,31 +127,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         bundle.putString(TITLE, fragmentTitle[2]);
         discoverFragment.setArguments(bundle);
         mTabs.add(discoverFragment);
-
-
-        // 定义viewpager的适配器，使得可以滑动操作
-        fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-
-            @Override
-            public int getCount() {
-                return mTabs.size();
-            }
-
-            @Override
-            public Fragment getItem(int position) {
-                return mTabs.get(position);
-            }
-        };
-
-        mViwePager.setAdapter(fragmentPagerAdapter);
-        mViwePager.addOnPageChangeListener(this);
     }
 
-
-    @OnClick({ R.id.imageView1, R.id.imageView2, R.id.imageView3 })
-    public void pickDoor(ImageView imageView) {
-        clickTab(imageView);
-    }
 
     /**
      * 点击tab标签
@@ -173,7 +179,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             invokeOnActivityResult(fragment, requestCode, resultCode, data);
         }
     }
-
 
 
     /**

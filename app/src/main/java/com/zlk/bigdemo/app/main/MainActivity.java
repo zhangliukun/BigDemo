@@ -1,10 +1,12 @@
 package com.zlk.bigdemo.app.main;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
+import com.zlk.bigdemo.app.main.fragment.SecondFragment;
+import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
+import com.zlk.bigdemo.freeza.Freeza;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +31,7 @@ import butterknife.OnClick;
  * @author zlk
  *
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
 
     public static String TITLE = "title";
@@ -81,14 +86,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         mTabs.add(myFragment);
 
         //朋友列表页面
-        MyFragment friendListFragment = new MyFragment();
+        SecondFragment friendListFragment = new SecondFragment();
         bundle.clear();
         bundle.putString(TITLE, fragmentTitle[1]);
         friendListFragment.setArguments(bundle);
         mTabs.add(friendListFragment);
 
         //发现朋友圈页面
-        MyFragment discoverFragment = new MyFragment();
+        ThirdFragment discoverFragment = new ThirdFragment();
         bundle.clear();
         bundle.putString(TITLE, fragmentTitle[2]);
         discoverFragment.setArguments(bundle);
@@ -158,6 +163,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         }
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        for (Fragment fragment : mTabs) {
+            invokeOnActivityResult(fragment, requestCode, resultCode, data);
+        }
+    }
+
+
+
     /**
      * 重置其他的View的标签
      *
@@ -186,11 +204,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,V
         clickTab(imageViews.get(arg0));
     }
 
-
-    @Override
-    public void onClick(View v) {
-        clickTab(v);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

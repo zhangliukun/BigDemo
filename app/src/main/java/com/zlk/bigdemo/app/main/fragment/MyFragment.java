@@ -4,18 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zlk.bigdemo.R;
+import com.zlk.bigdemo.app.BaseActivity;
+import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
+import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
+import com.zlk.bigdemo.app.utils.FileUtils;
 import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
-import com.zlk.bigdemo.freeza.util.FileUtils;
 import com.zlk.bigdemo.freeza.util.ThumbnailUtils;
+
 
 import java.io.File;
 
@@ -26,7 +29,7 @@ import butterknife.OnClick;
 /**
  * Created by ShineMo-177 on 2015/9/23.
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends BaseFragment implements OnActivityResultListener {
 
     private String  mTitle = "default";
 
@@ -63,7 +66,8 @@ public class MyFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult
+            (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -73,7 +77,7 @@ public class MyFragment extends Fragment {
                     File output = FileUtils.newImageCacheFile(getActivity());
                     mAvatarUri = Uri.fromFile(output);
                     CameraUtils.startCropImageActivityForCamera(getActivity(), avatarUri, mAvatarUri);
-
+                    //headImage.setImageURI(mAvatarUri);
                     break;
                 case CameraUtils.REQUEST_CODE_IMAGE_CROP:
                     if (mAvatarUri != null) {

@@ -22,6 +22,18 @@
         <item name="android:background">#b4b4b4</item>
     </style>
 
+
+    <style name="PUSH_Animation" parent="@style/AppTheme">
+        <item name="android:windowAnimationStyle">@style/activity_push</item>
+    </style>
+
+    <style name="activity_push">
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/push_right_out</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_right_in</item>
+    </style>
+
     <style name="title_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/title_height</item>

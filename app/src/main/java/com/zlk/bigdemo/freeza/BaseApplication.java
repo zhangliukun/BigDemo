@@ -21,7 +21,6 @@ public class BaseApplication extends Application {
 	public static BaseApplication getInstance(){
 		if (sInstance==null){
 			Log.i("application","null");
-			sInstance = new BaseApplication();
 		}
 
 		return sInstance;

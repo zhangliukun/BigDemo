@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +52,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         initView();
         initDatas();
 
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 imageViews.get(1).setBackgroundColor(getResources().getColor(R.color.footbar_press));
                 break;
             case R.id.imageView3:
-                if (currentFragment.equals(fragmentTitle[1])){
+                if (currentFragment.equals(fragmentTitle[2])){
                     return;
                 }
                 currentFragment = fragmentTitle[2];
@@ -201,6 +201,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int arg0) {
+        Log.i("tab_count", String.valueOf(arg0));
         clickTab(imageViews.get(arg0));
     }
 

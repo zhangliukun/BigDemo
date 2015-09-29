@@ -137,13 +137,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     public void clickTab(View v)
     {
-        resetOtherTabs();
+
 
         switch (v.getId()) {
             case R.id.imageView1:
                 if (currentFragment.equals(fragmentTitle[0])){
                     return;
                 }
+                resetOtherTabs();
                 currentFragment = fragmentTitle[0];
                 mViwePager.setCurrentItem(0, false);
                 imageViews.get(0).setBackgroundColor(getResources().getColor(R.color.footbar_press));
@@ -152,6 +153,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 if (currentFragment.equals(fragmentTitle[1])){
                     return;
                 }
+                resetOtherTabs();
                 currentFragment = fragmentTitle[1];
                 mViwePager.setCurrentItem(1, false);
                 imageViews.get(1).setBackgroundColor(getResources().getColor(R.color.footbar_press));
@@ -160,6 +162,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 if (currentFragment.equals(fragmentTitle[2])){
                     return;
                 }
+                resetOtherTabs();
                 currentFragment = fragmentTitle[2];
                 mViwePager.setCurrentItem(2, false);
                 imageViews.get(2).setBackgroundColor(getResources().getColor(R.color.footbar_press));

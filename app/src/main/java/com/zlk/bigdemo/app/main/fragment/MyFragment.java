@@ -70,27 +70,27 @@ public class MyFragment extends BaseFragment implements OnActivityResultListener
             (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case MultiPictureSelectorActivity.REQUEST_CODE:
-                    String[] path = data.getStringArrayExtra(MultiPictureSelectorActivity.RET_KEY);
-                    Uri avatarUri = Uri.fromFile(new File(path[0]));
-                    File output = FileUtils.newImageCacheFile(getActivity());
-                    mAvatarUri = Uri.fromFile(output);
-                    CameraUtils.startCropImageActivityForCamera(getActivity(), avatarUri, mAvatarUri);
-                    //headImage.setImageURI(mAvatarUri);
-                    break;
-                case CameraUtils.REQUEST_CODE_IMAGE_CROP:
-                    if (mAvatarUri != null) {
-                        File avatar = ThumbnailUtils
-                                .compressAndRotateToBitmapThumbFile(getActivity(),
-                                        mAvatarUri, 800, 600);
-                        mAvatarUri = null;
-                        if (avatar != null) {
-                            setHeadImage(avatar.getPath());
-                        }
-                    }
-                    break;
-            }
+//            switch (requestCode) {
+//                case MultiPictureSelectorActivity.REQUEST_CODE:
+//                    String[] path = data.getStringArrayExtra(MultiPictureSelectorActivity.RET_KEY);
+//                    Uri avatarUri = Uri.fromFile(new File(path[0]));
+//                    File output = FileUtils.newImageCacheFile(getActivity());
+//                    mAvatarUri = Uri.fromFile(output);
+//                    CameraUtils.startCropImageActivityForCamera(getActivity(), avatarUri, mAvatarUri);
+//                    //headImage.setImageURI(mAvatarUri);
+//                    break;
+//                case CameraUtils.REQUEST_CODE_IMAGE_CROP:
+//                    if (mAvatarUri != null) {
+//                        File avatar = ThumbnailUtils
+//                                .compressAndRotateToBitmapThumbFile(getActivity(),
+//                                        mAvatarUri, 800, 600);
+//                        mAvatarUri = null;
+//                        if (avatar != null) {
+//                            setHeadImage(avatar.getPath());
+//                        }
+//                    }
+//                    break;
+//            }
         }
     }
 

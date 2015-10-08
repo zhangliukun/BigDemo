@@ -1,5 +1,7 @@
 package com.zlk.bigdemo.app.main;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,7 +21,9 @@ import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
+import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
 import com.zlk.bigdemo.freeza.Freeza;
+import com.zlk.bigdemo.freeza.util.CameraUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +73,15 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mToolbar.setLogo(R.mipmap.ic_launcher);
         mToolbar.setSubtitle("china");// 标题的文字需在setSupportActionBar之前，不然会无效
         setSupportActionBar(mToolbar);
+        final Activity activity = this;
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.action_settings:
+                        //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
+                        MultiPictureSelectorActivity.startActivity(activity, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
+                        break;
                 }
                 return true;
             }
@@ -228,7 +237,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         int id = item.getItemId();
         switch (id){
             case R.id.action_settings:
-
+                //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
+                MultiPictureSelectorActivity.startActivity(this, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
                 break;
         }
 

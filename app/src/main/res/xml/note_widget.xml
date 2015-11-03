@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="600dip"
+    android:minHeight="800dip"
+    android:initialLayout="@layout/layout_note_desktop"
+    android:resizeMode="horizontal|vertical"
+    android:minResizeHeight="200dp"
+    android:minResizeWidth="200dp"
+    >
+</appwidget-provider>

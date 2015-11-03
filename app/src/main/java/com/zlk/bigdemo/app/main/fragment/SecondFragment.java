@@ -1,33 +1,19 @@
 package com.zlk.bigdemo.app.main.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.zlk.bigdemo.R;
-import com.zlk.bigdemo.android.volley.Request;
-import com.zlk.bigdemo.android.volley.RequestQueue;
-import com.zlk.bigdemo.android.volley.Response;
-import com.zlk.bigdemo.android.volley.VolleyError;
-import com.zlk.bigdemo.android.volley.toolbox.StringRequest;
-import com.zlk.bigdemo.android.volley.toolbox.Volley;
 import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
 import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
-import com.zlk.bigdemo.app.main.MyApplication;
-import com.zlk.bigdemo.app.utils.FileUtils;
-import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
-import com.zlk.bigdemo.freeza.util.CameraUtils;
-import com.zlk.bigdemo.freeza.util.ThumbnailUtils;
-
-import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,13 +24,19 @@ import butterknife.OnClick;
  */
 public class SecondFragment extends BaseFragment implements OnActivityResultListener {
 
-    private String  mTitle = "default";
+    //广播意图标志
+    public static final String DESKTOP_WIDGET_BROADCAST_ACTION = "com.zalezone.NOTE_UPDATE";
+    //广播动作action
+    public static final String DESKTOP_WIDGET_NEW_NOTE = "new_note";
 
-    private Uri mAvatarUri;
+    private String mTitle = "default";
+    private String newNoteString = "";
+    private Context mContext;
 
-    @Bind(R.id.webView)
-    WebView webView;
-
+    @Bind(R.id.new_note)
+    EditText newNoteEdit;
+    @Bind(R.id.accept)
+    Button acceptButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,41 +44,38 @@ public class SecondFragment extends BaseFragment implements OnActivityResultList
         if (getArguments() != null) {
             mTitle = getArguments().getString(MainActivity.TITLE);
         }
-
         View view = inflater.inflate(R.layout.fragment_two, container,false);
-        ButterKnife.bind(this,view);
+        mContext = view.getContext();
+        ButterKnife.bind(this, view);
 
         initView();
         initData();
 
 
-
-
         return view;
+    }
+
+    @OnClick(R.id.accept)
+     void acceptNewNote(){
+        if (!newNoteEdit.getText().equals("")){
+            newNoteString = newNoteEdit.getText().toString();
+            Intent desktopIntent = new Intent(DESKTOP_WIDGET_BROADCAST_ACTION);
+            desktopIntent.putExtra(DESKTOP_WIDGET_NEW_NOTE,newNoteString);
+            mContext.sendBroadcast(desktopIntent);
+        }else {
+            showToast(getString(R.string.cannt_create_empty_note));
+        }
     }
 
     private void initView() {
 
-        webView.getSettings().setDefaultTextEncodingName("UTF-8");//设置默认为utf-8
-        webView.getSettings().setJavaScriptEnabled(true);
+
+
 
     }
 
     private void initData() {
-        RequestQueue requestQueue = Volley.newRequestQueue(MyApplication.getInstance());
-        String url = "http://www.baidu.com";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                showToast(String.valueOf(error));
-            }
-        });
-        requestQueue.add(stringRequest);
     }
 
     @Override

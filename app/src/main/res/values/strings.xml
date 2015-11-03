@@ -35,5 +35,9 @@
     <string name="disk_upload2">上传</string>
     <string name="send">发送</string>
     <string name="confirm">确认</string>
+    <string name="desktop_text">当你娱乐的时候，要知道有多少厉害的人正在更加厉害</string>
+    <string name="cannt_create_empty_note">不能创建空的便签</string>
+    <string name="input_new_note">请输入新的便签</string>
+    <string name="accept">确定</string>
 
 </resources>

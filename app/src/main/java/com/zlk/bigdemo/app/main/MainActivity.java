@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     private void initView() {
         mToolbar.setTitle("zalezone");
-        mToolbar.setLogo(R.mipmap.ic_launcher);
+        mToolbar.setLogo(R.drawable.ic_launcher);
         mToolbar.setSubtitle("china");// 标题的文字需在setSupportActionBar之前，不然会无效
         setSupportActionBar(mToolbar);
         final Activity activity = this;

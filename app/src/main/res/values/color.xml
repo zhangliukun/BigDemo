@@ -15,6 +15,7 @@
     <color name="youban_popupwindow_text_red">#fa565a</color>
     <color name="top_grade_color">#ffffff</color>
     <color name="refresh_head_color">#505253</color>
+    <color name="note_text_desktop_color">#ff80777f</color>
 
     <color name="transparent">#00000000</color>
     <color name="transparentActivity">#e6ffffff</color>

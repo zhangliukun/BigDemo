@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.zlk.bigdemo.R;
+import com.zlk.bigdemo.app.main.MainActivity;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 
 import java.util.HashSet;
@@ -45,8 +46,9 @@ public class NoteProvider extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.note_text,newNoteText);
         ComponentName provider = new ComponentName(context, NoteProvider.class);
 
-        //PendingIntent pendingIntent = new PendingIntent();
-
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.note_text,pendingIntent);
         instance.updateAppWidget(provider,remoteViews);
     }
 

@@ -1,29 +1,25 @@
 package com.zlk.bigdemo.app.main;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
-import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
-import com.zlk.bigdemo.freeza.Freeza;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
+import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,20 +112,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      * 增加fragment的tab
      */
     private void addFragmentTabs(){
-        //会话列表页面
-        MyFragment myFragment = new MyFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(TITLE, fragmentTitle[0]);
-        myFragment.setArguments(bundle);
-        mTabs.add(myFragment);
-
         //朋友列表页面
         SecondFragment friendListFragment = new SecondFragment();
-        bundle.clear();
+        Bundle bundle = new Bundle();
         bundle.putString(TITLE, fragmentTitle[1]);
         friendListFragment.setArguments(bundle);
         mTabs.add(friendListFragment);
-
+        //会话列表页面
+        MyFragment myFragment = new MyFragment();
+        bundle.clear();
+        bundle.putString(TITLE, fragmentTitle[0]);
+        myFragment.setArguments(bundle);
+        mTabs.add(myFragment);
         //发现朋友圈页面
         ThirdFragment discoverFragment = new ThirdFragment();
         bundle.clear();

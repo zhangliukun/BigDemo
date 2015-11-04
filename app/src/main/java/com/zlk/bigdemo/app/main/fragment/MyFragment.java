@@ -10,14 +10,10 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zlk.bigdemo.R;
-import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
 import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
-import com.zlk.bigdemo.app.utils.FileUtils;
-import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
-import com.zlk.bigdemo.freeza.util.CameraUtils;
-import com.zlk.bigdemo.freeza.util.ThumbnailUtils;
+import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
 
 import java.io.File;

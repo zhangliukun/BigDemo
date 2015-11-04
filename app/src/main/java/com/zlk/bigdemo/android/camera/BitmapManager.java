@@ -21,9 +21,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
-
-import com.zlk.bigdemo.app.utils.LogUtil;
-
 import java.io.FileDescriptor;
 import java.util.WeakHashMap;
 
@@ -142,7 +139,6 @@ public class BitmapManager {
         ThreadStatus status = getOrCreateThreadStatus(t);
 
         if (!canThreadDecoding(t)) {
-            LogUtil.d(TAG, "Thread " + t + " is not allowed to decode.");
             return null;
         }
 
@@ -183,7 +179,6 @@ public class BitmapManager {
 
         Thread thread = Thread.currentThread();
         if (!canThreadDecoding(thread)) {
-        	LogUtil.d(TAG, "Thread " + thread + " is not allowed to decode.");
             return null;
         }
 

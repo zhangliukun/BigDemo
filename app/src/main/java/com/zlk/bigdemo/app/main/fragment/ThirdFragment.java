@@ -2,40 +2,25 @@ package com.zlk.bigdemo.app.main.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ListView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.drawable.ProgressBarDrawable;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
 import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
 import com.zlk.bigdemo.app.main.adapter.ImageAdapter;
 import com.zlk.bigdemo.app.main.model.ImageItem;
-import com.zlk.bigdemo.app.utils.FileUtils;
-import com.zlk.bigdemo.app.widget.selector.MultiPictureSelectorActivity;
+import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
-import com.zlk.bigdemo.freeza.util.ThumbnailUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by ShineMo-177 on 2015/9/23.

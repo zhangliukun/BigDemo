@@ -45,10 +45,10 @@
         </activity>
 
         <activity
-            android:name=".app.widget.selector.MultiPictureSelectorActivity"
+            android:name=".freeza.widget.selector.MultiPictureSelectorActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".app.widget.selector.ShowAlbumImageActivity"
+            android:name=".freeza.widget.selector.ShowAlbumImageActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

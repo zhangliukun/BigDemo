@@ -37,7 +37,7 @@ import android.view.Window;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.android.camera.gallery.IImage;
 import com.zlk.bigdemo.android.camera.gallery.IImageList;
-import com.zlk.bigdemo.app.utils.LogUtil;
+import com.zlk.bigdemo.freeza.util.LogUtil;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

@@ -25,7 +25,7 @@ import android.os.ParcelFileDescriptor;
 
 import com.zlk.bigdemo.android.camera.BitmapManager;
 import com.zlk.bigdemo.android.camera.Util;
-import com.zlk.bigdemo.app.utils.LogUtil;
+import com.zlk.bigdemo.freeza.util.LogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -39,5 +39,7 @@
     <string name="cannt_create_empty_note">不能创建空的便签</string>
     <string name="input_new_note">请输入新的便签</string>
     <string name="accept">确定</string>
+    <string name="pull_down_refresh">下拉刷新</string>
+    <string name="pull_up_refresh">加载更多</string>
 
 </resources>

@@ -18,6 +18,7 @@ import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
+import com.zlk.bigdemo.app.opencv.Tutorial1Activity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
@@ -74,10 +75,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_settings:
+                    case R.id.menu_action_add_picture:
                         //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
                         MultiPictureSelectorActivity.startActivity(activity, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
                         break;
+                    case R.id.menu_action_opencv:
+                        Intent opencv = new Intent(activity, Tutorial1Activity.class);
+                        startActivity(opencv);
                 }
                 return true;
             }
@@ -228,12 +232,16 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        //在toolbar中进行操作
         int id = item.getItemId();
         switch (id){
-            case R.id.action_settings:
+            case R.id.menu_action_add_picture:
                 //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
                 MultiPictureSelectorActivity.startActivity(this, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
                 break;
+            case R.id.menu_action_opencv:
+                Intent opencv = new Intent(this, Tutorial1Activity.class);
+                this.startActivity(opencv);
         }
 
 

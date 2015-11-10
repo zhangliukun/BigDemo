@@ -8,8 +8,14 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_action_add_picture"
         android:orderInCategory="100"
         android:title="添加照片"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_action_opencv"
+        android:orderInCategory="100"
+        android:title="调用opencv"
         app:showAsAction="never"/>
 </menu>

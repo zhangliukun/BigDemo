@@ -10,6 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,6 +27,8 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+
 }
 
 dependencies {
@@ -34,4 +38,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.facebook.fresco:fresco:0.6.1+'
     compile project(':openCVLibrary300')
+
 }

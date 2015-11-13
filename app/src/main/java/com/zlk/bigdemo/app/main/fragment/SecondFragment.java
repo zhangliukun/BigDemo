@@ -14,10 +14,12 @@ import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
 import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
+import com.zlk.bigdemo.freeza.widget.FullScreenRecordView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 /**
  * Created by ShineMo-177 on 2015/9/23.
@@ -37,6 +39,8 @@ public class SecondFragment extends BaseFragment implements OnActivityResultList
     EditText newNoteEdit;
     @Bind(R.id.accept)
     Button acceptButton;
+    @Bind(R.id.full_screen_view)
+    FullScreenRecordView fullScreenRecordView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class SecondFragment extends BaseFragment implements OnActivityResultList
         if (getArguments() != null) {
             mTitle = getArguments().getString(MainActivity.TITLE);
         }
-        View view = inflater.inflate(R.layout.fragment_two, container,false);
+        View view = inflater.inflate(R.layout.fragment_two, container, false);
         mContext = view.getContext();
         ButterKnife.bind(this, view);
 
@@ -55,21 +59,27 @@ public class SecondFragment extends BaseFragment implements OnActivityResultList
         return view;
     }
 
+    @OnLongClick(R.id.accept)
+    boolean showFullScreen() {
+        fullScreenRecordView.setVisibility(View.VISIBLE);
+        return false;
+    }
+
     @OnClick(R.id.accept)
-     void acceptNewNote(){
-        if (!newNoteEdit.getText().equals("")){
+    void acceptNewNote() {
+        if (!newNoteEdit.getText().equals("")) {
             newNoteString = newNoteEdit.getText().toString();
             Intent desktopIntent = new Intent(DESKTOP_WIDGET_BROADCAST_ACTION);
-            desktopIntent.putExtra(DESKTOP_WIDGET_NEW_NOTE,newNoteString);
+            desktopIntent.putExtra(DESKTOP_WIDGET_NEW_NOTE, newNoteString);
             mContext.sendBroadcast(desktopIntent);
-        }else {
+        } else {
             showToast(getString(R.string.cannt_create_empty_note));
         }
     }
 
     private void initView() {
 
-
+        fullScreenRecordView.setVisibility(View.GONE);
 
 
     }
@@ -79,8 +89,7 @@ public class SecondFragment extends BaseFragment implements OnActivityResultList
     }
 
     @Override
-    public void onActivityResult
-            (int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {

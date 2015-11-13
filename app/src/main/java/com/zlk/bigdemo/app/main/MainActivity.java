@@ -18,7 +18,12 @@ import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
-import com.zlk.bigdemo.app.opencv.Tutorial1Activity;
+import com.zlk.bigdemo.app.main.record.RecordActivity;
+import com.zlk.bigdemo.app.opencv.cameracalibration.CameraCalibrationActivity;
+import com.zlk.bigdemo.app.opencv.colorblobdetect.ColorBlobDetectionActivity;
+import com.zlk.bigdemo.app.opencv.facedetect.FdActivity;
+import com.zlk.bigdemo.app.opencv.puzzle15.Puzzle15Activity;
+import com.zlk.bigdemo.app.opencv.tutorial1activity.Tutorial1Activity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
@@ -82,6 +87,28 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.menu_action_opencv:
                         Intent opencv = new Intent(activity, Tutorial1Activity.class);
                         startActivity(opencv);
+                        break;
+                    case R.id.menu_puzzle_activity:
+                        Intent puzzleActivity = new Intent(activity, Puzzle15Activity.class);
+                        startActivity(puzzleActivity);
+                        break;
+                    case R.id.menu_cameracalibration:
+                        Intent calibrate = new Intent(activity, CameraCalibrationActivity.class);
+                        startActivity(calibrate);
+                        break;
+                    case R.id.color_blob_detection:
+                        Intent colorDetection = new Intent(activity, ColorBlobDetectionActivity.class);
+                        startActivity(colorDetection);
+                        break;
+                    case R.id.face_detection:
+                        Intent faceDetection = new Intent(activity, FdActivity.class);
+                        startActivity(faceDetection);
+                        break;
+                    case R.id.full_screen_view:
+                        Intent fullRecroid = new Intent(activity, RecordActivity.class);
+                        startActivity(fullRecroid);
+                        break;
+
                 }
                 return true;
             }
@@ -231,20 +258,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        //在toolbar中进行操作
-        int id = item.getItemId();
-        switch (id){
-            case R.id.menu_action_add_picture:
-                //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
-                MultiPictureSelectorActivity.startActivity(this, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
-                break;
-            case R.id.menu_action_opencv:
-                Intent opencv = new Intent(this, Tutorial1Activity.class);
-                this.startActivity(opencv);
-        }
-
-
         return super.onOptionsItemSelected(item);
     }
 

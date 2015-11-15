@@ -281,6 +281,7 @@ public class FullScreenRecordView extends RelativeLayout{
                 setItemLocation((int) event.getX(), (int) event.getY());
                 break;
 
+            case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 //audioManagers.play(recordPath,recordPlayListener);
                 audioManagers.stopRecord();
@@ -289,6 +290,9 @@ public class FullScreenRecordView extends RelativeLayout{
                 mRecordStatusListener.endRecord(recordPath,recordTimeCount);
                 Log.i("up direction","x:"+event.getX()+" y:"+event.getY());
                 break;
+
+
+
         }
     }
 

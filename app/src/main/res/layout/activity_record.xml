@@ -8,9 +8,7 @@
         android:layout_height="wrap_content"
         android:text="录音"
         android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+        android:layout_gravity="center" />
 
     <com.zlk.bigdemo.freeza.widget.FullScreenRecordView
         android:id="@+id/full_screen_view"

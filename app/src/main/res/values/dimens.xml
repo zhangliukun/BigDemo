@@ -31,6 +31,7 @@
     <dimen name="updatebar_padding">10.0dip</dimen>
     <dimen name="font_third_grade">12sp</dimen>
     <dimen name="youban_list_content_smile">20dip</dimen>
+    <dimen name="voice_line_width">1dp</dimen>
 
     <dimen name="pull_down_toast_size">113dip</dimen>
     <dimen name="column_up_unit_margin">10dip</dimen>

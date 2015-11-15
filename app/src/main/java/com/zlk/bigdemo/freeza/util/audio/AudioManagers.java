@@ -10,8 +10,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 
+import com.zlk.bigdemo.app.main.MyApplication;
+import com.zlk.bigdemo.freeza.Freeza;
 import com.zlk.bigdemo.freeza.util.FileUtils;
 import com.zlk.bigdemo.freeza.util.Md5Util;
+import com.zlk.bigdemo.freeza.widget.VoiceView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,9 +30,9 @@ public class AudioManagers {
 
     private static AudioManagers sInstance;
 
-//    private AudioManagers() {
-//        mContext = BaseApplication.getInstance();
-//    }
+    private AudioManagers() {
+        mContext = MyApplication.getInstance();
+    }
 
     public static AudioManagers getInstance() {
         if (sInstance == null) {
@@ -468,22 +471,22 @@ public class AudioManagers {
     private void showRecordProgress() {
         if (mCurRecordListener != null) {
             if (mRecorder != null && mCurRecordFile != null && mRecordStartTime != 0) {
-//                Freeza.getInstance().getHandler().post(new Runnable() { //推送给主线程
-//                    @Override
-//                    public void run() {
-//                        if (mCurRecordListener != null)
-//                            mCurRecordListener.onRecordProgressListener(getRecordLength());
-//                        if (mRecordVoiceListener != null) {
-//                            try {
-//                                mRecordVoiceListener.onRecordVoice(VoiceView.MAX_LEVEL *
-//                                        mRecorder.getMaxAmplitude() / OnRecordVoiceListener.MAX_AMPLITUDE + 1);
-//                            } catch (Exception e) {
-//                                mRecordVoiceListener.onRecordVoice(VoiceView.MIN_LEVEL);
-//                            }
-//                        }
-//
-//                    }
-//                });
+                Freeza.getInstance().getHandler().post(new Runnable() { //推送给主线程
+                    @Override
+                    public void run() {
+                        if (mCurRecordListener != null)
+                            mCurRecordListener.onRecordProgressListener(getRecordLength());
+                        if (mRecordVoiceListener != null) {
+                            try {
+                                mRecordVoiceListener.onRecordVoice(VoiceView.MAX_LEVEL *
+                                        mRecorder.getMaxAmplitude() / OnRecordVoiceListener.MAX_AMPLITUDE + 1);
+                            } catch (Exception e) {
+                                mRecordVoiceListener.onRecordVoice(VoiceView.MIN_LEVEL);
+                            }
+                        }
+
+                    }
+                });
             }
         }
 

@@ -55,5 +55,7 @@
     <string name="please_wait">Please, wait</string>
     <string name="original">Original</string>
     <string name="undistorted">Undistorted</string>
+    <string name="recording">&#160;&#160;&#160;正在录音...</string>
+    <string name="cancelrecord">手指下滑取消发送</string>
 
 </resources>

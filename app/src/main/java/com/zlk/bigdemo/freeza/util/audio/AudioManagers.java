@@ -53,7 +53,7 @@ public class AudioManagers {
     private List<String> mDownloadingPool = new ArrayList<String>();
     private Timer mTimer;
     private TimerTask mTimerTask;
-    private int EVERY_TIME = 150;
+    private int EVERY_TIME = 30;
     // 录音监听函数
     private OnRecordListener mCurRecordListener;
     private OnRecordVoiceListener mRecordVoiceListener;

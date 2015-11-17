@@ -60,7 +60,7 @@ public class VoiceView extends View {
     }
 
     private void init() {
-        mVoice = new int[60 * 20];
+        mVoice = new int[100 * 21];
         mSize = 0;
         mPaint = new Paint();
         mPaint.setColor(mLineColor);

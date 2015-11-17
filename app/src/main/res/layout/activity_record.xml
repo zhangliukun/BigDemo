@@ -10,6 +10,32 @@
         android:id="@+id/button"
         android:layout_gravity="center" />
 
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView3"
+        android:clickable="true"
+        android:layout_gravity="left|top" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/contacts_select" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="right|top"
+        android:src="@drawable/camera_crop_holo" />
+
+
     <com.zlk.bigdemo.freeza.widget.FullScreenRecordView
         android:id="@+id/full_screen_view"
         android:layout_width="match_parent"

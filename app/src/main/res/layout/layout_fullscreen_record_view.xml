@@ -2,28 +2,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/record_background">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/image_item"
-        android:src="@drawable/yb_rcxq_btn_red"
-        android:visibility="gone"/>
+
+
+    <RelativeLayout
+        android:id="@+id/buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttom_TV"
+            android:clickable="false"
+            android:text="@string/cancelrecord"
+            android:textColor="@color/record_cancel"
+            android:textSize="@dimen/record_text_size"
+            android:drawableLeft="@drawable/rec_close_normal"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@color/record_background"/>
+
+    </RelativeLayout>
+
+
 
     <com.zlk.bigdemo.freeza.widget.VoiceView
-        android:id="@+id/voiceview"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:id="@+id/voiceviewleft"
+        android:layout_width="90dp"
+        android:layout_height="28dp"
+        android:layout_toLeftOf="@+id/record_time"
+        android:layout_alignTop="@+id/record_time"
+        android:layout_marginRight="10dp" />
+
+    <com.zlk.bigdemo.freeza.widget.VoiceView
+        android:id="@+id/voiceviewright"
+        android:layout_width="90dp"
+        android:layout_height="28dp"
+        android:layout_toRightOf="@+id/record_time"
+        android:layout_alignTop="@+id/record_time"
+        android:layout_marginLeft="10dp" />
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"
-        android:text="00:00"
+        android:textColor="@color/record_time_color_red"
+        android:text="0:00"
         android:id="@+id/record_time"
-        android:layout_centerInParent="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/recording"
+        android:layout_marginTop="19dp"
+        android:textSize="@dimen/record_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recording"
+        android:id="@+id/recording"
+        android:textColor="@color/white"
+        android:textSize="@dimen/record_text_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_item"
+        android:elevation="300dp"
+        android:src="@drawable/rec_touch_normal"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

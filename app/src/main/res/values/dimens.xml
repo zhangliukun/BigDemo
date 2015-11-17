@@ -121,5 +121,6 @@
     <dimen name="schedule_alert_time_gv_width">400dp</dimen>
     <dimen name="schedule_alert_type_gv_width">240dp</dimen>
     <dimen name="hand_lock_head_size">60dp</dimen>
+    <dimen name="record_text_size">17sp</dimen>
 
 </resources>

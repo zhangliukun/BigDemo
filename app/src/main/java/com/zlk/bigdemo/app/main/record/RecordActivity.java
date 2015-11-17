@@ -22,34 +22,27 @@ public class RecordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-
         initView();
-
     }
-
 
     private void initView() {
         fullScreenRecordView = (FullScreenRecordView) findViewById(R.id.full_screen_view);
         button = (Button) findViewById(R.id.button);
-
         fullScreenRecordView.setmRecordStatusListener(new FullScreenRecordView.onRecordStatusListener() {
             @Override
             public void startRecord() {
                 fullScreenRecordView.setVisibility(View.VISIBLE);
             }
             @Override
-            public void endRecord(String recordPath, int recordTime) {
+            public void endRecord(String recordPath, int recordTime,boolean isSend) {
                 fullScreenRecordView.setVisibility(View.GONE);
             }
-
         });
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         fullScreenRecordView.getOnTouchEvent(event);
         return true;
     }
-
 
 }

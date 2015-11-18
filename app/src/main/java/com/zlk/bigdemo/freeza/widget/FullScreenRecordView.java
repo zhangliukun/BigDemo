@@ -1,9 +1,13 @@
 package com.zlk.bigdemo.freeza.widget;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.Service;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -237,6 +241,20 @@ public class FullScreenRecordView extends RelativeLayout{
     }
 
     /**
+     * 添加录音震动
+     * VIBRATE P1: the number of milliseconds to wait before turning the vibrator on
+     *         P2: the number of milliseconds for which to keep the vibrator on before turning it off
+     *         P+: alternate between durations in milliseconds to turn the vibrator off or to turn the vibrator on
+     *
+     *         To cause the pattern to repeat, pass the index into the pattern array at which to start the repeat, or -1 to disable repeating
+     */
+    private void sendYibrateNotification(){
+        long[] pattern = {0,500};
+        Vibrator vibrate = (Vibrator) mContext.getSystemService(Service.VIBRATOR_SERVICE);
+        vibrate.vibrate(pattern,-1);
+    }
+
+    /**
      * 设置是否全屏
      * @param isFullScreen
      */
@@ -391,6 +409,7 @@ public class FullScreenRecordView extends RelativeLayout{
             mRecordStatusListener.startRecord();
             setIsFullScreen(true);
             recordPath = audioManagers.record(recordListener,recordVoiceListener);
+            sendYibrateNotification();
         }
     };
 

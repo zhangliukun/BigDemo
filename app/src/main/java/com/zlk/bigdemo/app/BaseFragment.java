@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.zlk.bigdemo.R;
 
 
+/**
+ * 基础fragment
+ */
 public abstract class BaseFragment extends Fragment {
 	
 	private ProgressDialog mProgressDialog;

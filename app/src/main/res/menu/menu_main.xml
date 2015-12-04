@@ -49,6 +49,12 @@
         android:title="全屏录音"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/load_more_listview"
+        android:orderInCategory="100"
+        android:title="加载更多"
+        app:showAsAction="never"/>
+
 
 
 </menu>

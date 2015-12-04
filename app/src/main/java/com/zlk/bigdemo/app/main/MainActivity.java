@@ -108,6 +108,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         Intent fullRecroid = new Intent(activity, RecordActivity.class);
                         startActivity(fullRecroid);
                         break;
+                    case R.id.load_more_listview:
+
 
                 }
                 return true;

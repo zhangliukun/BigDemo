@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="record_time_color_red">#fa565a</color>
+    <color name="record_background">#1e2528</color>
+    <color name="record_cancel">#6a6e71</color>
+</resources>

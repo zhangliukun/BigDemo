@@ -18,6 +18,7 @@ import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
+import com.zlk.bigdemo.app.main.listdata.RefreshActivity;
 import com.zlk.bigdemo.app.main.record.RecordActivity;
 import com.zlk.bigdemo.app.opencv.cameracalibration.CameraCalibrationActivity;
 import com.zlk.bigdemo.app.opencv.colorblobdetect.ColorBlobDetectionActivity;
@@ -25,6 +26,7 @@ import com.zlk.bigdemo.app.opencv.facedetect.FdActivity;
 import com.zlk.bigdemo.app.opencv.puzzle15.Puzzle15Activity;
 import com.zlk.bigdemo.app.opencv.tutorial1activity.Tutorial1Activity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
 import java.util.ArrayList;
@@ -109,7 +111,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         startActivity(fullRecroid);
                         break;
                     case R.id.load_more_listview:
-
+                        Intent pullIntent = new Intent(activity, RefreshActivity.class);
+                        startActivity(pullIntent);
+                        break;
 
                 }
                 return true;

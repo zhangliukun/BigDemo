@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer
         android:id="@+id/base_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <com.zlk.bigdemo.freeza.widget.pullrefreshview.MyTextView
+        <com.zlk.bigdemo.freeza.widget.pullrefreshview.MyContent
             android:id="@+id/my_textview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android_custom:layoutMarginLeft="40dp"
+            android_custom:layoutMarginRight="40dp"/>
+
 
 
     </com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer>

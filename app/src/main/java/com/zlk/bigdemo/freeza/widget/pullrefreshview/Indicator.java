@@ -7,37 +7,45 @@ public class Indicator {
 
     private float mOffsetX;
     private float mOffsetY;
-    private int mCurrentPosX = 0;
-    private int mCurrentPosY = 0;
+
     private int mLastPosX = 0;
     private int mLastPosY = 0;
-    private int mPressedPosX = 0;
-    private int mPressedPosY = 0;
+
+    private boolean mIsUnderTouch = false;
+
+    private int mHeaderHeight;
+
 
     private void setOffset(float x, float y) {
-        mOffsetX = x - mPressedPosX;
-        mOffsetY = y - mPressedPosY;
+        mOffsetX = x - mLastPosX;
+        mOffsetY = y - mLastPosY;
     }
 
-    public void setCurrentPos(float x,float y){
-        mCurrentPosX = (int) x;
-        mCurrentPosY = (int) y;
+    public void onMove(float x, float y){
         setOffset(x,y);
+        setLastPos(x,y);
+
     }
 
     public float getOffsetY(){
         return mOffsetY;
     }
 
-    public void setPressedPos(float x,float y){
-        mPressedPosX = (int) x;
-        mPressedPosY = (int) y;
-    }
 
     public void setLastPos(float x,float y){
         mLastPosX = (int) x;
         mLastPosY = (int) y;
     }
+
+    public void setHeaderHeight(int height){
+        mHeaderHeight = height;
+    }
+
+    public int getHeaderHeight(){
+        return mHeaderHeight;
+    }
+
+
 
 
 

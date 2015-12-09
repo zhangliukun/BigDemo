@@ -4,33 +4,34 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zlk.bigdemo.R;
+
 /**
  * Created by zale on 2015/12/8.
  */
-public class MyTextView extends View {
+public class MyContent extends RelativeLayout {
 
-    private Paint mPaint;
+    private View mContent;
 
-    public MyTextView(Context context) {
-        super(context);
+    public MyContent(Context context) {
+        this(context, null);
     }
 
-    public MyTextView(Context context, AttributeSet attrs) {
+    public MyContent(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mPaint = new Paint();
+        init(context);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        canvas.drawText("hello world",600,600,mPaint);
+    private void init(Context context) {
+        mContent = LayoutInflater.from(context).inflate(R.layout.item_content,this);
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

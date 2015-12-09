@@ -8,4 +8,9 @@
         <attr name="lineWidth" format="dimension|reference"/>
     </declare-styleable>
 
+    <declare-styleable name="BaseContainer">
+        <attr name="layoutMarginLeft" format="dimension|reference"/>
+        <attr name="layoutMarginRight" format="dimension|reference"/>
+    </declare-styleable>
+
 </resources>

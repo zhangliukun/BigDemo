@@ -11,6 +11,7 @@ import android.widget.Scroller;
 import android.widget.Toast;
 
 import com.zlk.bigdemo.R;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.util.ViewUtil;
 
 /**
  * Created by zale on 2015/12/8.
@@ -105,49 +106,63 @@ public class BaseContainer extends ViewGroup{
         super.onFinishInflate();
     }
 
-//    @Override
-//    public boolean (MotionEvent event) {
-//
-//        int action = event.getAction();
-//        switch (action){
-//            case MotionEvent.ACTION_DOWN:
-//                indicator.setPressedPos(event.getX(),event.getY());
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                indicator.onMove(event.getX(),event.getY());
-//                updateView();
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                indicator.setLastPos(event.getX(),event.getY());
-//                break;
-//        }
-//
-//        return super.onInterceptTouchEvent(event);
-//    }
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()){
+            updateView(indicator.getOffsetY() - mScroller.getCurrY());
+            //Log.i("mScroller.getoffset()", String.valueOf(mScroller.getCurrY() - indicator.getOffsetY()));
+            indicator.setOffsetY(mScroller.getCurrY());
+            invalidate();
+        }
+    }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action){
             case MotionEvent.ACTION_DOWN:
-                indicator.setLastPos(event.getX(),event.getY());
-                break;
+
+                Log.i("press down lo", event.getX() + " " + event.getY() + " ");
+                indicator.setLastPos(event.getX(), event.getY());
+                mScroller.forceFinished(true);
+                return true;
             case MotionEvent.ACTION_MOVE:
+                if (!ViewUtil.checkCanPullDown(mContentView)){
+                    return false;
+                }
                 indicator.onMove(event.getX(), event.getY());
-                updateView();
+                updateView(indicator.getOffsetY());
                 break;
             case MotionEvent.ACTION_UP:
-                indicator.setLastPos(event.getX(),event.getY());
+                indicator.setLastPos(event.getX(), event.getY());
+                resetLocation();
                 break;
         }
 
         return true;
     }
 
-    private void updateView() {
-        Log.i(LOG_TAG, "indicator.getOffsetY():" + indicator.getOffsetY());
-        mContentView.offsetTopAndBottom((int) indicator.getOffsetY());
-        mHeaderView.offsetTopAndBottom((int) indicator.getOffsetY());
+    private void resetLocation() {
+        int marginTop = mContentView.getTop();
+
+        mScroller.startScroll(0, 0, 0,
+                marginTop, 2000);
+        indicator.setOffsetY(0);
+        Log.i("Scroller-startY:", "" + mScroller.getStartY());
+        Log.i("Scroller-CurrY:", "" + mScroller.getCurrY());
+        Log.i("finalY", "" + mScroller.getFinalY());
+        Log.i("timePassed", "" + mScroller.timePassed());
+        Log.i("duration", "" + mScroller.getDuration());
+        postInvalidate();
+
+    }
+
+    private void updateView(float y) {
+        mContentView.offsetTopAndBottom((int) y);
+        mHeaderView.offsetTopAndBottom((int) y);
+        invalidate();
     }
 
 

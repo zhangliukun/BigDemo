@@ -19,6 +19,7 @@ import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
 import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
 import com.zlk.bigdemo.app.main.listdata.RefreshActivity;
+import com.zlk.bigdemo.app.main.listdata.RefreshListActivity;
 import com.zlk.bigdemo.app.main.record.RecordActivity;
 import com.zlk.bigdemo.app.opencv.cameracalibration.CameraCalibrationActivity;
 import com.zlk.bigdemo.app.opencv.colorblobdetect.ColorBlobDetectionActivity;
@@ -113,6 +114,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.load_more_listview:
                         Intent pullIntent = new Intent(activity, RefreshActivity.class);
                         startActivity(pullIntent);
+                        break;
+                    case R.id.refresh_listview:
+                        Intent refresh_listview = new Intent(activity, RefreshListActivity.class);
+                        startActivity(refresh_listview);
                         break;
 
                 }

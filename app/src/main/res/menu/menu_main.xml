@@ -55,6 +55,12 @@
         android:title="加载更多"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/refresh_listview"
+        android:orderInCategory="100"
+        android:title="上拉刷新Listview"
+        app:showAsAction="never"/>
+
 
 
 </menu>

@@ -32,6 +32,10 @@ public class Indicator {
     }
 
 
+    public void setOffsetY(float offsetY){
+        mOffsetY = offsetY;
+    }
+
     public void setLastPos(float x,float y){
         mLastPosX = (int) x;
         mLastPosY = (int) y;

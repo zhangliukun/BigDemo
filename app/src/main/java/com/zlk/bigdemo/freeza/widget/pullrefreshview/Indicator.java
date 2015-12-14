@@ -1,5 +1,7 @@
 package com.zlk.bigdemo.freeza.widget.pullrefreshview;
 
+import android.util.Log;
+
 /**
  * Created by zale on 2015/12/8.
  */
@@ -11,10 +13,19 @@ public class Indicator {
     private int mLastPosX = 0;
     private int mLastPosY = 0;
 
+    private int mCurrentY = 0;
+
     private boolean mIsUnderTouch = false;
 
     private int mHeaderHeight;
 
+    public int getCurrentY() {
+        return mCurrentY;
+    }
+
+    public void setCurrentY(int mCurrentY) {
+        this.mCurrentY = mCurrentY;
+    }
 
     private void setOffset(float x, float y) {
         mOffsetX = x - mLastPosX;
@@ -22,6 +33,7 @@ public class Indicator {
     }
 
     public void onMove(float x, float y){
+        Log.i("indicator","move");
         setOffset(x,y);
         setLastPos(x,y);
 

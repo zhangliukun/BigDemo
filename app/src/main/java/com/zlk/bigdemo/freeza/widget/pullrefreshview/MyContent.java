@@ -32,9 +32,4 @@ public class MyContent extends RelativeLayout {
         mContent = LayoutInflater.from(context).inflate(R.layout.item_content,this);
     }
 
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
 }

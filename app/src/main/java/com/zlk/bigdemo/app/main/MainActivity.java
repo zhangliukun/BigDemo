@@ -115,6 +115,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                         Intent pullIntent = new Intent(activity, RefreshActivity.class);
                         startActivity(pullIntent);
                         break;
+                    case R.id.refresh_textView:
+
+                        Intent refresh_textview = new Intent(activity, RefreshActivity.class);
+                        startActivity(refresh_textview);
+                        break;
+
                     case R.id.refresh_listview:
                         Intent refresh_listview = new Intent(activity, RefreshListActivity.class);
                         startActivity(refresh_listview);

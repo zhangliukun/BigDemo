@@ -32,7 +32,11 @@ public class BaseContainer extends ViewGroup{
     private Indicator indicator;
     private Scroller mScroller;
     private HeaderInterface headerInterface;
+
+    private boolean isOnTouch = false;
+
     int contentMarginTop =0;
+
 
 
 
@@ -79,7 +83,7 @@ public class BaseContainer extends ViewGroup{
 
     private void layoutChildren() {
 
-        int offsetY = (int) indicator.getOffsetY();
+        int offsetY = indicator.getCurrentY();
 
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
@@ -137,24 +141,31 @@ public class BaseContainer extends ViewGroup{
         switch (action){
             case MotionEvent.ACTION_DOWN:
 
+                isOnTouch = true;
                 Log.i("press down lo", event.getX() + " " + event.getY() + " ");
 
                 indicator.setLastPos(event.getX(), event.getY());
                 mScroller.forceFinished(true);
-                if (checkIsBeingDraged()){
+                if (ViewUtil.checkCanPullDown(mContentView)){
                     Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
                     return true;
                 }
                 return super.dispatchTouchEvent(event);
             case MotionEvent.ACTION_MOVE:
-                headerInterface.onUIPositionChange(indicator);
+
+
+
                 mLastMotionEvent = event;
                 if (!mHasSendCancelEvent&&indicator.getOffsetY()>0&&checkIsBeingDraged()){
+                    Log.i("sendCancelEvent", String.valueOf(checkIsBeingDraged()));
                     sendCancelEvent();
                 }
 
+
                 indicator.onMove(event.getX(), event.getY());
-                //Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
+                indicator.setCurrentY(mContentView.getTop());
+
+                Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
                 if (indicator.getOffsetY()>=0&&ViewUtil.checkCanPullDown(mContentView)) {
                     mHasSendDownEvent = false;
                     updateView(indicator.getOffsetY());
@@ -180,6 +191,7 @@ public class BaseContainer extends ViewGroup{
             case MotionEvent.ACTION_UP:
                 mHasSendCancelEvent = false;
                 mHasSendDownEvent = false;
+                isOnTouch = false;
                 indicator.setLastPos(event.getX(), event.getY());
                 resetLocation();
                 return super.dispatchTouchEvent(event);
@@ -220,7 +232,7 @@ public class BaseContainer extends ViewGroup{
     }
 
     private boolean checkIsBeingDraged(){
-        contentMarginTop = mContentView.getTop();
+        contentMarginTop = indicator.getCurrentY();
         if (contentMarginTop<=0){
             return false;
         }
@@ -237,7 +249,7 @@ public class BaseContainer extends ViewGroup{
     public void setHeaderView(View headerView){
         BaseContainer.MyLayoutParams lp = (MyLayoutParams) headerView.getLayoutParams();
         if (lp == null) {
-            lp = new MyLayoutParams(-1, -2);
+            lp = new MyLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
             headerView.setLayoutParams(lp);
         }
         mHeaderView = headerView;

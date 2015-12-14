@@ -35,6 +35,8 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface{
     }
 
 
+
+
     @Override
     public void onUIReset() {
         stateTV.setText("下拉刷新");

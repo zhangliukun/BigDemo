@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
-import android.widget.Toast;
 
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.util.ViewUtil;
@@ -19,6 +19,9 @@ import com.zlk.bigdemo.freeza.widget.pullrefreshview.util.ViewUtil;
 public class BaseContainer extends ViewGroup{
 
 
+    private static final int STATUS_PULL =0;//下拉状态
+    private static final int STATUS_REFRESH =1;//下拉状态
+
     private View mContentView;
     private View mHeaderView;
     private static final boolean DEBUG_LAYOUT = true;
@@ -28,6 +31,16 @@ public class BaseContainer extends ViewGroup{
 
     private Indicator indicator;
     private Scroller mScroller;
+    private HeaderInterface headerInterface;
+    int contentMarginTop =0;
+
+
+
+
+    private boolean mHasSendCancelEvent = false;//是否已经发送了取消事件
+    private boolean mHasSendDownEvent =false;//是否已经发送了点击事件
+
+    private MotionEvent mLastMotionEvent;
 
     public BaseContainer(Context context) {
         this(context, null);
@@ -125,38 +138,93 @@ public class BaseContainer extends ViewGroup{
             case MotionEvent.ACTION_DOWN:
 
                 Log.i("press down lo", event.getX() + " " + event.getY() + " ");
+
                 indicator.setLastPos(event.getX(), event.getY());
                 mScroller.forceFinished(true);
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                if (!ViewUtil.checkCanPullDown(mContentView)){
-                    return false;
+                if (checkIsBeingDraged()){
+                    Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
+                    return true;
                 }
+                return super.dispatchTouchEvent(event);
+            case MotionEvent.ACTION_MOVE:
+                headerInterface.onUIPositionChange(indicator);
+                mLastMotionEvent = event;
+                if (!mHasSendCancelEvent&&indicator.getOffsetY()>0&&checkIsBeingDraged()){
+                    sendCancelEvent();
+                }
+
                 indicator.onMove(event.getX(), event.getY());
-                updateView(indicator.getOffsetY());
-                break;
+                //Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
+                if (indicator.getOffsetY()>=0&&ViewUtil.checkCanPullDown(mContentView)) {
+                    mHasSendDownEvent = false;
+                    updateView(indicator.getOffsetY());
+                    return true;
+                }
+                if (indicator.getOffsetY()<0&&checkIsBeingDraged()){
+                    if (-indicator.getOffsetY()>contentMarginTop){
+                        updateView(-contentMarginTop);
+                    }else {
+                        updateView(indicator.getOffsetY());
+                    }
+                    return true;
+                }
+                if (!mHasSendDownEvent&&!checkIsBeingDraged()){
+                    Log.i("sendDownEvent", indicator.getOffsetY()+" "+checkIsBeingDraged());
+                    mHasSendDownEvent = true;
+                    sendDownEvent();
+                }
+                //Log.i("action_move_disp","dispatchevent");
+                return super.dispatchTouchEvent(event);
+
+            case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+                mHasSendCancelEvent = false;
+                mHasSendDownEvent = false;
                 indicator.setLastPos(event.getX(), event.getY());
                 resetLocation();
-                break;
+                return super.dispatchTouchEvent(event);
         }
 
         return true;
     }
 
     private void resetLocation() {
-        int marginTop = mContentView.getTop();
+        contentMarginTop = mContentView.getTop();
 
         mScroller.startScroll(0, 0, 0,
-                marginTop, 2000);
+                contentMarginTop, 2000);
         indicator.setOffsetY(0);
-        Log.i("Scroller-startY:", "" + mScroller.getStartY());
-        Log.i("Scroller-CurrY:", "" + mScroller.getCurrY());
-        Log.i("finalY", "" + mScroller.getFinalY());
-        Log.i("timePassed", "" + mScroller.timePassed());
-        Log.i("duration", "" + mScroller.getDuration());
+//        Log.i("Scroller-startY:", "" + mScroller.getStartY());
+//        Log.i("Scroller-CurrY:", "" + mScroller.getCurrY());
+//        Log.i("finalY", "" + mScroller.getFinalY());
+//        Log.i("timePassed", "" + mScroller.timePassed());
+//        Log.i("duration", "" + mScroller.getDuration());
         postInvalidate();
 
+    }
+
+    private void sendCancelEvent() {
+        if (mLastMotionEvent == null) {
+            return;
+        }
+        mHasSendCancelEvent = true;
+        MotionEvent last = mLastMotionEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime() + ViewConfiguration.getLongPressTimeout(), MotionEvent.ACTION_CANCEL, last.getX(), last.getY(), last.getMetaState());
+        super.dispatchTouchEvent(e);
+    }
+
+    private void sendDownEvent() {
+        final MotionEvent last = mLastMotionEvent;
+        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_DOWN, last.getX(), last.getY(), last.getMetaState());
+        super.dispatchTouchEvent(e);
+    }
+
+    private boolean checkIsBeingDraged(){
+        contentMarginTop = mContentView.getTop();
+        if (contentMarginTop<=0){
+            return false;
+        }
+        return true;
     }
 
     private void updateView(float y) {
@@ -174,6 +242,8 @@ public class BaseContainer extends ViewGroup{
         }
         mHeaderView = headerView;
         addView(headerView);
+
+        headerInterface = (HeaderInterface) headerView;
     }
 
 

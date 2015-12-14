@@ -1,6 +1,11 @@
 package com.zlk.bigdemo.app.main.listdata;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -46,4 +51,5 @@ public class RefreshListActivity extends BaseActivity{
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,dataList);
         mListView.setAdapter(arrayAdapter);
     }
+
 }

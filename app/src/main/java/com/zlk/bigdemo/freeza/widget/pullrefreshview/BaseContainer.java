@@ -28,6 +28,7 @@ public class BaseContainer extends ViewGroup{
     public static boolean DEBUG = true;
     private static int ID = 1;
     protected final String LOG_TAG = "zale-frame-" + ++ID;
+    protected final String TOUCH_TAG = "Touch-Event";
 
     private Indicator indicator;
     private Scroller mScroller;
@@ -146,7 +147,7 @@ public class BaseContainer extends ViewGroup{
 
                 indicator.setLastPos(event.getX(), event.getY());
                 mScroller.forceFinished(true);
-                if (ViewUtil.checkCanPullDown(mContentView)){
+                if (checkIsBeingDraged()){
                     Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
                     return true;
                 }
@@ -189,6 +190,10 @@ public class BaseContainer extends ViewGroup{
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+
+
+                Log.i(TOUCH_TAG,"touchevent up");
+
                 mHasSendCancelEvent = false;
                 mHasSendDownEvent = false;
                 isOnTouch = false;

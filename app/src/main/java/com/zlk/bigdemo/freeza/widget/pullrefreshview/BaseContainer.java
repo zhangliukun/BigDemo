@@ -33,6 +33,7 @@ public class BaseContainer extends ViewGroup{
     private Indicator indicator;
     private Scroller mScroller;
     private HeaderInterface headerInterface;
+    private RefreshCallBack refreshCallBack;
 
     private boolean isOnTouch = false;
 
@@ -120,6 +121,8 @@ public class BaseContainer extends ViewGroup{
         final int childCount = getChildCount();
         if (childCount == 1){
             mContentView = getChildAt(0);
+            //set the contentView clickable that won't let the down event disappear
+            mContentView.setClickable(true);
         }
         super.onFinishInflate();
     }
@@ -127,7 +130,7 @@ public class BaseContainer extends ViewGroup{
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if (mScroller.computeScrollOffset()){
+        if (mScroller.computeScrollOffset()) {
             updateView(indicator.getOffsetY() - mScroller.getCurrY());
             //Log.i("mScroller.getoffset()", String.valueOf(mScroller.getCurrY() - indicator.getOffsetY()));
             indicator.setOffsetY(mScroller.getCurrY());
@@ -145,12 +148,14 @@ public class BaseContainer extends ViewGroup{
                 isOnTouch = true;
                 Log.i("press down lo", event.getX() + " " + event.getY() + " ");
 
+                indicator.setCurrentY(mContentView.getTop());
                 indicator.setLastPos(event.getX(), event.getY());
                 mScroller.forceFinished(true);
                 if (checkIsBeingDraged()){
                     Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
                     return true;
                 }
+
                 return super.dispatchTouchEvent(event);
             case MotionEvent.ACTION_MOVE:
 
@@ -238,6 +243,7 @@ public class BaseContainer extends ViewGroup{
 
     private boolean checkIsBeingDraged(){
         contentMarginTop = indicator.getCurrentY();
+        Log.i(TOUCH_TAG,"checkIsBeingDraged:"+ "margintop:"+contentMarginTop);
         if (contentMarginTop<=0){
             return false;
         }
@@ -261,6 +267,10 @@ public class BaseContainer extends ViewGroup{
         addView(headerView);
 
         headerInterface = (HeaderInterface) headerView;
+    }
+
+    public void setRefreshCallBack(RefreshCallBack callBack){
+        this.refreshCallBack = callBack;
     }
 
 

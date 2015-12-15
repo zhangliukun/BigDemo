@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.RefreshCallBack;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.SimpleHeader;
 
 /**
@@ -27,5 +28,16 @@ public class RefreshActivity extends BaseActivity{
         mBaseContainer = (BaseContainer) findViewById(R.id.base_container);
         simpleHeader = new SimpleHeader(this);
         mBaseContainer.setHeaderView(simpleHeader);
+        mBaseContainer.setRefreshCallBack(new RefreshCallBack() {
+            @Override
+            public boolean checkIsCanRefresh() {
+                return false;
+            }
+
+            @Override
+            public void onRefreshBegin() {
+
+            }
+        });
     }
 }

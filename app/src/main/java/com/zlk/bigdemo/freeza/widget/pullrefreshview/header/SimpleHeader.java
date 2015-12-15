@@ -10,11 +10,12 @@ import android.widget.TextView;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.HeaderInterface;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.Indicator;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.RefreshCallBack;
 
 /**
  * Created by zale on 2015/12/9.
  */
-public class SimpleHeader extends RelativeLayout implements HeaderInterface{
+public class SimpleHeader extends RelativeLayout implements HeaderInterface {
 
 
     private TextView stateTV;
@@ -30,11 +31,9 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface{
     }
 
     private void init(Context context) {
-        View headView = LayoutInflater.from(context).inflate(R.layout.item_simple_headview,this);
-        stateTV = (TextView)headView.findViewById(R.id.state);
+        View headView = LayoutInflater.from(context).inflate(R.layout.item_simple_headview, this);
+        stateTV = (TextView) headView.findViewById(R.id.state);
     }
-
-
 
 
     @Override
@@ -44,21 +43,35 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface{
 
     @Override
     public void onUIRefreshPerpare() {
-
+        stateTV.setText("释放以刷新");
     }
 
     @Override
     public void onUIRefreshBegin() {
-
+        stateTV.setText("正在刷新");
     }
 
     @Override
     public void onUIRefreshComplete() {
-
+        stateTV.setText("更新完成");
     }
 
     @Override
-    public void onUIPositionChange(Indicator indicator) {
-        stateTV.setText("位置已经更新");
+    public void onUIPositionChange(Indicator indicator, boolean isOnTouch, RefreshCallBack refreshCallBack) {
+        if (isOnTouch&&indicator.getPullStatus() == Indicator.STATUS_INITIAL) {
+            if (indicator.getCurrentY() < indicator.getHeaderHeight() / 2 && indicator.getPullStatus() != Indicator.STATUS_PULL) {
+                onUIReset();
+                indicator.setPullStatus(Indicator.STATUS_PULL);
+            } else if (indicator.getPullStatus() != Indicator.STATUS_PULL_PREPARE) {
+                onUIRefreshPerpare();
+                indicator.setPullStatus(Indicator.STATUS_PULL_PREPARE);
+            }
+        } else if (indicator.getPullStatus() == Indicator.STATUS_PULL_PREPARE) {
+            onUIRefreshBegin();
+            refreshCallBack.onRefreshBegin();
+            indicator.setPullStatus(Indicator.STATUS_REFRESH);
+        }
+
+
     }
 }

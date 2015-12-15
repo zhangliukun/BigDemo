@@ -13,6 +13,6 @@ public interface HeaderInterface {
 
     public void onUIRefreshComplete();
 
-    public void onUIPositionChange(Indicator indicator);
+    public void onUIPositionChange(Indicator indicator,boolean isOnTouch,RefreshCallBack callBack);
 
 }

@@ -19,9 +19,6 @@ import com.zlk.bigdemo.freeza.widget.pullrefreshview.util.ViewUtil;
 public class BaseContainer extends ViewGroup{
 
 
-    private static final int STATUS_PULL =0;//下拉状态
-    private static final int STATUS_REFRESH =1;//下拉状态
-
     private View mContentView;
     private View mHeaderView;
     private static final boolean DEBUG_LAYOUT = true;
@@ -38,9 +35,6 @@ public class BaseContainer extends ViewGroup{
     private boolean isOnTouch = false;
 
     int contentMarginTop =0;
-
-
-
 
 
     private boolean mHasSendCancelEvent = false;//是否已经发送了取消事件
@@ -131,10 +125,12 @@ public class BaseContainer extends ViewGroup{
     public void computeScroll() {
         super.computeScroll();
         if (mScroller.computeScrollOffset()) {
+//            Log.i("getOffsetY,CurrY,diff", indicator.getOffsetY()+","+mScroller.getCurrY()+" "+(indicator.getOffsetY() - mScroller.getCurrY()));
             updateView(indicator.getOffsetY() - mScroller.getCurrY());
-            //Log.i("mScroller.getoffset()", String.valueOf(mScroller.getCurrY() - indicator.getOffsetY()));
             indicator.setOffsetY(mScroller.getCurrY());
             invalidate();
+        }else {
+            indicator.setPullStatus(Indicator.STATUS_INITIAL);
         }
     }
 
@@ -159,8 +155,6 @@ public class BaseContainer extends ViewGroup{
                 return super.dispatchTouchEvent(event);
             case MotionEvent.ACTION_MOVE:
 
-
-
                 mLastMotionEvent = event;
                 if (!mHasSendCancelEvent&&indicator.getOffsetY()>0&&checkIsBeingDraged()){
                     Log.i("sendCancelEvent", String.valueOf(checkIsBeingDraged()));
@@ -169,7 +163,6 @@ public class BaseContainer extends ViewGroup{
 
 
                 indicator.onMove(event.getX(), event.getY());
-                indicator.setCurrentY(mContentView.getTop());
 
                 Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
                 if (indicator.getOffsetY()>=0&&ViewUtil.checkCanPullDown(mContentView)) {
@@ -195,27 +188,32 @@ public class BaseContainer extends ViewGroup{
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-
-
                 Log.i(TOUCH_TAG,"touchevent up");
 
                 mHasSendCancelEvent = false;
                 mHasSendDownEvent = false;
                 isOnTouch = false;
                 indicator.setLastPos(event.getX(), event.getY());
-                resetLocation();
+                headerInterface.onUIPositionChange(indicator, isOnTouch,refreshCallBack);
+                if (indicator.getPullStatus() == Indicator.STATUS_REFRESH){
+                    updateView(-(indicator.getCurrentY()-indicator.getHeaderHeight()));
+                }
                 return super.dispatchTouchEvent(event);
         }
 
         return true;
     }
 
-    private void resetLocation() {
-        contentMarginTop = mContentView.getTop();
+    public void refreshComplete(){
+        resetLocation(indicator.getCurrentY(),0);
+        indicator.setPullStatus(Indicator.STATUS_REFRESH_COMPLETE);
+    }
 
-        mScroller.startScroll(0, 0, 0,
-                contentMarginTop, 2000);
-        indicator.setOffsetY(0);
+    private void resetLocation(int distance, int toPos) {
+        mScroller.startScroll(0, toPos, 0,
+                distance, 2000);
+        //indicator.setOffsetY(0);
+        indicator.setOffsetY(toPos);
 //        Log.i("Scroller-startY:", "" + mScroller.getStartY());
 //        Log.i("Scroller-CurrY:", "" + mScroller.getCurrY());
 //        Log.i("finalY", "" + mScroller.getFinalY());
@@ -254,6 +252,10 @@ public class BaseContainer extends ViewGroup{
         mContentView.offsetTopAndBottom((int) y);
         mHeaderView.offsetTopAndBottom((int) y);
         invalidate();
+
+        indicator.setCurrentY(mContentView.getTop());
+        headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+
     }
 
 

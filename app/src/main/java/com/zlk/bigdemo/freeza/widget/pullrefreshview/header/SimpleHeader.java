@@ -2,6 +2,7 @@ package com.zlk.bigdemo.freeza.widget.pullrefreshview.header;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -58,18 +59,23 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
 
     @Override
     public void onUIPositionChange(Indicator indicator, boolean isOnTouch, RefreshCallBack refreshCallBack) {
-        if (isOnTouch&&indicator.getPullStatus() == Indicator.STATUS_INITIAL) {
+        Log.i("Touch Tag",indicator.getPullStatus() + " " + isOnTouch + indicator.getCurrentY());
+        if (indicator.getPullStatus() == Indicator.STATUS_REFRESH||indicator.getPullStatus()==Indicator.STATUS_REFRESH_COMPLETE){
+            return;
+        }
+        if (isOnTouch) {
             if (indicator.getCurrentY() < indicator.getHeaderHeight() / 2 && indicator.getPullStatus() != Indicator.STATUS_PULL) {
-                onUIReset();
                 indicator.setPullStatus(Indicator.STATUS_PULL);
+                onUIReset();
+
             } else if (indicator.getPullStatus() != Indicator.STATUS_PULL_PREPARE) {
-                onUIRefreshPerpare();
                 indicator.setPullStatus(Indicator.STATUS_PULL_PREPARE);
+                onUIRefreshPerpare();
             }
         } else if (indicator.getPullStatus() == Indicator.STATUS_PULL_PREPARE) {
+            indicator.setPullStatus(Indicator.STATUS_REFRESH);
             onUIRefreshBegin();
             refreshCallBack.onRefreshBegin();
-            indicator.setPullStatus(Indicator.STATUS_REFRESH);
         }
 
 

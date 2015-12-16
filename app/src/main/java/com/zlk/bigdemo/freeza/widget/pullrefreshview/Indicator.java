@@ -15,7 +15,7 @@ public class Indicator {
     public static final int STATUS_REFRESH = 3;//刷新状态
     public static final int STATUS_REFRESH_COMPLETE = 4;//刷新状态
 
-    private int pullStatus =STATUS_INITIAL ;
+    private int pullStatus;
 
 
     private float mOffsetX;

@@ -16,13 +16,13 @@ import com.zlk.bigdemo.freeza.widget.pullrefreshview.util.ViewUtil;
 /**
  * Created by zale on 2015/12/8.
  */
-public class BaseContainer extends ViewGroup{
+public class BaseContainer extends ViewGroup {
 
 
     private View mContentView;
     private View mHeaderView;
-    private static final boolean DEBUG_LAYOUT = true;
-    public static boolean DEBUG = true;
+    private static final boolean DEBUG_LAYOUT = false;
+    public static boolean DEBUG = false;
     private static int ID = 1;
     protected final String LOG_TAG = "zale-frame-" + ++ID;
     protected final String TOUCH_TAG = "Touch-Event";
@@ -34,11 +34,11 @@ public class BaseContainer extends ViewGroup{
 
     private boolean isOnTouch = false;
 
-    int contentMarginTop =0;
+    int contentMarginTop = 0;
 
 
     private boolean mHasSendCancelEvent = false;//是否已经发送了取消事件
-    private boolean mHasSendDownEvent =false;//是否已经发送了点击事件
+    private boolean mHasSendDownEvent = false;//是否已经发送了点击事件
 
     private MotionEvent mLastMotionEvent;
 
@@ -60,14 +60,14 @@ public class BaseContainer extends ViewGroup{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if (mHeaderView!=null){
-            measureChild(mHeaderView,widthMeasureSpec,heightMeasureSpec);
+        if (mHeaderView != null) {
+            measureChild(mHeaderView, widthMeasureSpec, heightMeasureSpec);
             indicator.setHeaderHeight(mHeaderView.getMeasuredHeight());
-            Log.i("BaseContainer:",mHeaderView.getMeasuredHeight()+":"+mHeaderView.getHeight());
+            Log.i("BaseContainer:", mHeaderView.getMeasuredHeight() + ":" + mHeaderView.getHeight());
         }
 
-        if (mContentView!=null){
-            measureChild(mContentView,widthMeasureSpec,heightMeasureSpec);
+        if (mContentView != null) {
+            measureChild(mContentView, widthMeasureSpec, heightMeasureSpec);
         }
 
     }
@@ -84,36 +84,36 @@ public class BaseContainer extends ViewGroup{
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
 
-        if (mHeaderView!=null){
+        if (mHeaderView != null) {
             BaseContainer.MyLayoutParams lp = (MyLayoutParams) mHeaderView.getLayoutParams();
             //LayoutParams lp = mHeaderView.getLayoutParams();
             final int left = paddingLeft;
-            final int top = paddingTop  + offsetY - mHeaderView.getMeasuredHeight();
+            final int top = paddingTop + offsetY - mHeaderView.getMeasuredHeight();
             final int right = left + mHeaderView.getMeasuredWidth();
             final int bottom = top + mHeaderView.getMeasuredHeight();
             if (DEBUG && DEBUG_LAYOUT) {
                 Log.i(LOG_TAG, String.format("onLayout header: %s %s %s %s", left, top, right, bottom));
             }
-            mHeaderView.layout(left,top,right,bottom);
+            mHeaderView.layout(left, top, right, bottom);
         }
 
-        if (mContentView!=null){
+        if (mContentView != null) {
             BaseContainer.MyLayoutParams lp = (MyLayoutParams) mContentView.getLayoutParams();
             final int left = paddingLeft;
-            final int top = paddingTop  + offsetY;
+            final int top = paddingTop + offsetY;
             final int right = left + mContentView.getMeasuredWidth();
             final int bottom = top + mContentView.getMeasuredHeight();
             if (DEBUG && DEBUG_LAYOUT) {
                 Log.i(LOG_TAG, String.format("onLayout content: %s %s %s %s", left, top, right, bottom));
             }
-            mContentView.layout(left,top,right,bottom);
+            mContentView.layout(left, top, right, bottom);
         }
     }
 
     @Override
     protected void onFinishInflate() {
         final int childCount = getChildCount();
-        if (childCount == 1){
+        if (childCount == 1) {
             mContentView = getChildAt(0);
             //set the contentView clickable that won't let the down event disappear
             mContentView.setClickable(true);
@@ -129,84 +129,118 @@ public class BaseContainer extends ViewGroup{
             updateView(indicator.getOffsetY() - mScroller.getCurrY());
             indicator.setOffsetY(mScroller.getCurrY());
             invalidate();
-        }else {
-            indicator.setPullStatus(Indicator.STATUS_INITIAL);
+        } else {
+
+            if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE) {
+
+                if (mContentView.getTop() <= 0) {
+                    Log.i(TOUCH_TAG, "更新完成，设置为initial");
+                    indicator.setPullStatus(Indicator.STATUS_INITIAL);
+                }
+
+//            if (indicator.getPullStatus() == Indicator.STATUS_REFRESH) {
+//                if (mContentView.getTop() > 0) {
+////                    Log.i(TOUCH_TAG, indicator.getPullStatus() + " " + mContentView.getTop());
+////                    resetLocation(mContentView.getTop(), 0);
+//                } else {
+//                    indicator.setPullStatus(Indicator.STATUS_INITIAL);
+//                }
+//
+//            }
+            }
         }
     }
 
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-        switch (action){
-            case MotionEvent.ACTION_DOWN:
-
-                isOnTouch = true;
-                Log.i("press down lo", event.getX() + " " + event.getY() + " ");
-
-                indicator.setCurrentY(mContentView.getTop());
-                indicator.setLastPos(event.getX(), event.getY());
-                mScroller.forceFinished(true);
-                if (checkIsBeingDraged()){
-                    Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
-                    return true;
-                }
-
-                return super.dispatchTouchEvent(event);
-            case MotionEvent.ACTION_MOVE:
-
-                mLastMotionEvent = event;
-                if (!mHasSendCancelEvent&&indicator.getOffsetY()>0&&checkIsBeingDraged()){
-                    Log.i("sendCancelEvent", String.valueOf(checkIsBeingDraged()));
-                    sendCancelEvent();
-                }
+        @Override
+        public boolean dispatchTouchEvent (MotionEvent event){
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
 
 
-                indicator.onMove(event.getX(), event.getY());
+                    isOnTouch = true;
+                    mScroller.forceFinished(true);
+                    Log.i("press down lo", event.getX() + " " + event.getY() + " ");
 
-                Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
-                if (indicator.getOffsetY()>=0&&ViewUtil.checkCanPullDown(mContentView)) {
-                    mHasSendDownEvent = false;
-                    updateView(indicator.getOffsetY());
-                    return true;
-                }
-                if (indicator.getOffsetY()<0&&checkIsBeingDraged()){
-                    if (-indicator.getOffsetY()>contentMarginTop){
-                        updateView(-contentMarginTop);
-                    }else {
-                        updateView(indicator.getOffsetY());
+                    indicator.setCurrentY(mContentView.getTop());
+                    indicator.setLastPos(event.getX(), event.getY());
+
+                    if (checkIsBeingDraged()) {
+                        Log.i("isBeingDraged", String.valueOf(checkIsBeingDraged()));
+                        return true;
                     }
-                    return true;
-                }
-                if (!mHasSendDownEvent&&!checkIsBeingDraged()){
-                    Log.i("sendDownEvent", indicator.getOffsetY()+" "+checkIsBeingDraged());
-                    mHasSendDownEvent = true;
-                    sendDownEvent();
-                }
-                //Log.i("action_move_disp","dispatchevent");
-                return super.dispatchTouchEvent(event);
 
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                Log.i(TOUCH_TAG,"touchevent up");
+                    return super.dispatchTouchEvent(event);
+                case MotionEvent.ACTION_MOVE:
 
-                mHasSendCancelEvent = false;
-                mHasSendDownEvent = false;
-                isOnTouch = false;
-                indicator.setLastPos(event.getX(), event.getY());
-                headerInterface.onUIPositionChange(indicator, isOnTouch,refreshCallBack);
-                if (indicator.getPullStatus() == Indicator.STATUS_REFRESH){
-                    updateView(-(indicator.getCurrentY()-indicator.getHeaderHeight()));
-                }
-                return super.dispatchTouchEvent(event);
+                    mLastMotionEvent = event;
+                    if (!mHasSendCancelEvent && indicator.getOffsetY() > 0 && checkIsBeingDraged()) {
+                        Log.i("sendCancelEvent", String.valueOf(checkIsBeingDraged()));
+                        sendCancelEvent();
+                    }
+
+
+                    indicator.onMove(event.getX(), event.getY());
+
+                    Log.i("getOffsetY,CanPullDown", indicator.getOffsetY() + " " + ViewUtil.checkCanPullDown(mContentView));
+                    if (indicator.getOffsetY() >= 0 && ViewUtil.checkCanPullDown(mContentView)) {
+                        mHasSendDownEvent = false;
+                        updateView(indicator.getOffsetY());
+                        headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+                        return true;
+                    }
+                    //最后直接到达顶部
+                    if (indicator.getOffsetY() < 0 && checkIsBeingDraged()) {
+                        if (-indicator.getOffsetY() > contentMarginTop) {
+                            updateView(-contentMarginTop);
+                            headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+                        } else {
+                            updateView(indicator.getOffsetY());
+                            headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+                        }
+                        return true;
+                    }
+                    if (!mHasSendDownEvent && !checkIsBeingDraged()) {
+                        Log.i("sendDownEvent", indicator.getOffsetY() + " " + checkIsBeingDraged());
+                        mHasSendDownEvent = true;
+                        sendDownEvent();
+                    }
+                    //Log.i("action_move_disp","dispatchevent");
+                    return super.dispatchTouchEvent(event);
+
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    Log.i(TOUCH_TAG, "touchevent up");
+
+                    mHasSendCancelEvent = false;
+                    mHasSendDownEvent = false;
+                    isOnTouch = false;
+                    indicator.setLastPos(event.getX(), event.getY());
+                    headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+//                    Log.i(TOUCH_TAG, "touchup pullStatus " + indicator.getPullStatus());
+                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH) {
+                        updateView(-(indicator.getCurrentY() - indicator.getHeaderHeight()));
+                        indicator.setCurrentY(mContentView.getTop());
+                    }
+                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE){
+                        refreshComplete();
+                    }
+//                    Log.i(TOUCH_TAG, "touchup pullStatus " + indicator.getPullStatus());
+//                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE) {
+//                        refreshComplete();
+//                    }
+                    return super.dispatchTouchEvent(event);
+            }
+
+            return true;
         }
 
-        return true;
-    }
 
-    public void refreshComplete(){
-        resetLocation(indicator.getCurrentY(),0);
+    public void refreshComplete() {
+        resetLocation(indicator.getCurrentY(), 0);
         indicator.setPullStatus(Indicator.STATUS_REFRESH_COMPLETE);
+        headerInterface.onUIRefreshComplete();
     }
 
     private void resetLocation(int distance, int toPos) {
@@ -239,10 +273,10 @@ public class BaseContainer extends ViewGroup{
         super.dispatchTouchEvent(e);
     }
 
-    private boolean checkIsBeingDraged(){
+    private boolean checkIsBeingDraged() {
         contentMarginTop = indicator.getCurrentY();
-        Log.i(TOUCH_TAG,"checkIsBeingDraged:"+ "margintop:"+contentMarginTop);
-        if (contentMarginTop<=0){
+        Log.i(TOUCH_TAG, "checkIsBeingDraged:" + "margintop:" + contentMarginTop);
+        if (contentMarginTop <= 0) {
             return false;
         }
         return true;
@@ -252,14 +286,13 @@ public class BaseContainer extends ViewGroup{
         mContentView.offsetTopAndBottom((int) y);
         mHeaderView.offsetTopAndBottom((int) y);
         invalidate();
-
         indicator.setCurrentY(mContentView.getTop());
-        headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
+
 
     }
 
 
-    public void setHeaderView(View headerView){
+    public void setHeaderView(View headerView) {
         BaseContainer.MyLayoutParams lp = (MyLayoutParams) headerView.getLayoutParams();
         if (lp == null) {
             lp = new MyLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -271,13 +304,12 @@ public class BaseContainer extends ViewGroup{
         headerInterface = (HeaderInterface) headerView;
     }
 
-    public void setRefreshCallBack(RefreshCallBack callBack){
+    public void setRefreshCallBack(RefreshCallBack callBack) {
         this.refreshCallBack = callBack;
     }
 
 
-
-    public static class MyLayoutParams extends ViewGroup.LayoutParams{
+    public static class MyLayoutParams extends ViewGroup.LayoutParams {
 
         int marginLeft;
         int marginRight;
@@ -285,9 +317,9 @@ public class BaseContainer extends ViewGroup{
         public MyLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
             TypedArray typedArray = c.obtainStyledAttributes(attrs, R.styleable.BaseContainer);
-            marginLeft = typedArray.getDimensionPixelSize(R.styleable.BaseContainer_layoutMarginLeft,0);
-            marginRight = typedArray.getDimensionPixelSize(R.styleable.BaseContainer_layoutMarginRight,0);
-            Log.i("mylayoutparams","marginLeft marginRight "+marginLeft+" "+marginRight);
+            marginLeft = typedArray.getDimensionPixelSize(R.styleable.BaseContainer_layoutMarginLeft, 0);
+            marginRight = typedArray.getDimensionPixelSize(R.styleable.BaseContainer_layoutMarginRight, 0);
+            Log.i("mylayoutparams", "marginLeft marginRight " + marginLeft + " " + marginRight);
             typedArray.recycle();
         }
 
@@ -302,7 +334,7 @@ public class BaseContainer extends ViewGroup{
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new MyLayoutParams(this.getContext(),attrs);
+        return new MyLayoutParams(this.getContext(), attrs);
     }
 
     @Override
@@ -312,6 +344,6 @@ public class BaseContainer extends ViewGroup{
 
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
-        return new MyLayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        return new MyLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 }

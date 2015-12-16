@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,9 @@ import android.widget.ListView;
 
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
+import com.zlk.bigdemo.freeza.Freeza;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.RefreshCallBack;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.SimpleHeader;
 
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class RefreshListActivity extends BaseActivity{
     List<String> dataList = new ArrayList<String>();
     SimpleHeader simpleHeader;
 
+    Handler mHandler = Freeza.getInstance().getHandler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,21 @@ public class RefreshListActivity extends BaseActivity{
         mListView = (ListView) findViewById(R.id.myListView);
         simpleHeader = new SimpleHeader(this);
         mBaseContainer.setHeaderView(simpleHeader);
+        mBaseContainer.setRefreshCallBack(new RefreshCallBack() {
+
+            @Override
+            public void onRefreshBegin() {
+
+                Log.i("network","Refresh Start");
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBaseContainer.refreshComplete();
+                        Log.i("network", "Refresh end");
+                    }
+                }, 8000);
+            }
+        });
     }
 
     private void initData() {

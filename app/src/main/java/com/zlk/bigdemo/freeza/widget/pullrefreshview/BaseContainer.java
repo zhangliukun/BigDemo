@@ -174,6 +174,10 @@ public class BaseContainer extends ViewGroup {
                     return super.dispatchTouchEvent(event);
                 case MotionEvent.ACTION_MOVE:
 
+                    if (!mScroller.isFinished()){
+                        mScroller.forceFinished(true);
+                    }
+
                     mLastMotionEvent = event;
                     if (!mHasSendCancelEvent && indicator.getOffsetY() > 0 && checkIsBeingDraged()) {
                         Log.i("sendCancelEvent", String.valueOf(checkIsBeingDraged()));
@@ -219,13 +223,20 @@ public class BaseContainer extends ViewGroup {
                     indicator.setLastPos(event.getX(), event.getY());
                     headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
 //                    Log.i(TOUCH_TAG, "touchup pullStatus " + indicator.getPullStatus());
-                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH) {
+                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH&&indicator.getCurrentY()>indicator.getHeaderHeight()) {
                         updateView(-(indicator.getCurrentY() - indicator.getHeaderHeight()));
                         indicator.setCurrentY(mContentView.getTop());
                     }
                     if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE){
                         refreshComplete();
                     }
+
+                    if (indicator.getCurrentY() < indicator.getHeaderHeight() && indicator.getPullStatus() != Indicator.STATUS_PULL&&indicator.getPullStatus()!=Indicator.STATUS_REFRESH) {
+                        indicator.setPullStatus(Indicator.STATUS_PULL);
+                        resetLocation(indicator.getCurrentY(),0);
+
+                    }
+
 //                    Log.i(TOUCH_TAG, "touchup pullStatus " + indicator.getPullStatus());
 //                    if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE) {
 //                        refreshComplete();

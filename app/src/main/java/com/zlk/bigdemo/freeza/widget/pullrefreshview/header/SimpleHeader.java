@@ -59,23 +59,28 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
 
     @Override
     public void onUIPositionChange(Indicator indicator, boolean isOnTouch, RefreshCallBack refreshCallBack) {
-        Log.i("Touch Tag",indicator.getPullStatus() + " " + isOnTouch + indicator.getCurrentY());
+        Log.i("onUIPositionChange",indicator.getPullStatus() + " " + isOnTouch + indicator.getCurrentY());
         if (indicator.getPullStatus() == Indicator.STATUS_REFRESH||indicator.getPullStatus()==Indicator.STATUS_REFRESH_COMPLETE){
             return;
         }
         if (isOnTouch) {
-            if (indicator.getCurrentY() < indicator.getHeaderHeight() / 2 && indicator.getPullStatus() != Indicator.STATUS_PULL) {
+            if (indicator.getCurrentY() < indicator.getHeaderHeight() && indicator.getPullStatus() != Indicator.STATUS_PULL) {
                 indicator.setPullStatus(Indicator.STATUS_PULL);
                 onUIReset();
 
-            } else if (indicator.getPullStatus() != Indicator.STATUS_PULL_PREPARE) {
+            }
+            if (indicator.getCurrentY()>=indicator.getHeaderHeight()&&indicator.getPullStatus() != Indicator.STATUS_PULL_PREPARE) {
                 indicator.setPullStatus(Indicator.STATUS_PULL_PREPARE);
                 onUIRefreshPerpare();
             }
-        } else if (indicator.getPullStatus() == Indicator.STATUS_PULL_PREPARE) {
-            indicator.setPullStatus(Indicator.STATUS_REFRESH);
-            onUIRefreshBegin();
-            refreshCallBack.onRefreshBegin();
+        } else {
+            if (indicator.getPullStatus() == Indicator.STATUS_PULL_PREPARE) {
+                indicator.setPullStatus(Indicator.STATUS_REFRESH);
+                onUIRefreshBegin();
+                refreshCallBack.onRefreshBegin();
+
+            }
+
         }
 
 

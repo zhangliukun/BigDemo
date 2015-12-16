@@ -231,8 +231,7 @@ public class BaseContainer extends ViewGroup {
                         refreshComplete();
                     }
 
-                    if (indicator.getCurrentY() < indicator.getHeaderHeight() && indicator.getPullStatus() != Indicator.STATUS_PULL&&indicator.getPullStatus()!=Indicator.STATUS_REFRESH) {
-                        indicator.setPullStatus(Indicator.STATUS_PULL);
+                    if (indicator.getPullStatus() == Indicator.STATUS_PULL) {
                         resetLocation(indicator.getCurrentY(),0);
 
                     }

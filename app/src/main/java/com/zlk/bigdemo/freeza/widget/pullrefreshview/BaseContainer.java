@@ -224,7 +224,10 @@ public class BaseContainer extends ViewGroup {
                     headerInterface.onUIPositionChange(indicator, isOnTouch, refreshCallBack);
 //                    Log.i(TOUCH_TAG, "touchup pullStatus " + indicator.getPullStatus());
                     if (indicator.getPullStatus() == Indicator.STATUS_REFRESH&&indicator.getCurrentY()>indicator.getHeaderHeight()) {
-                        updateView(-(indicator.getCurrentY() - indicator.getHeaderHeight()));
+                        //立即刷新回原处
+                        //updateView(-(indicator.getCurrentY() - indicator.getHeaderHeight()));
+                        //缓慢刷新回原处
+                        resetLocation(indicator.getCurrentY() - indicator.getHeaderHeight(),indicator.getHeaderHeight(),500);
                         indicator.setCurrentY(mContentView.getTop());
                     }
                     if (indicator.getPullStatus() == Indicator.STATUS_REFRESH_COMPLETE){
@@ -232,7 +235,7 @@ public class BaseContainer extends ViewGroup {
                     }
 
                     if (indicator.getPullStatus() == Indicator.STATUS_PULL) {
-                        resetLocation(indicator.getCurrentY(),0);
+                        resetLocation(indicator.getCurrentY(),0,2000);
 
                     }
 
@@ -248,14 +251,14 @@ public class BaseContainer extends ViewGroup {
 
 
     public void refreshComplete() {
-        resetLocation(indicator.getCurrentY(), 0);
+        resetLocation(indicator.getCurrentY(), 0,2000);
         indicator.setPullStatus(Indicator.STATUS_REFRESH_COMPLETE);
         headerInterface.onUIRefreshComplete();
     }
 
-    private void resetLocation(int distance, int toPos) {
+    private void resetLocation(int distance, int toPos,int millions) {
         mScroller.startScroll(0, toPos, 0,
-                distance, 2000);
+                distance, millions);
         //indicator.setOffsetY(0);
         indicator.setOffsetY(toPos);
 //        Log.i("Scroller-startY:", "" + mScroller.getStartY());

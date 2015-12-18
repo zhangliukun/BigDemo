@@ -250,12 +250,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageScrollStateChanged(int arg0) {
+        Log.i("MainActivity","onPageScrollStateChanged:"+arg0);
 
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        //Log.i("MainActivity","position:"+position+" positionOffset:"+positionOffset+" positionOffsetPixels:"+positionOffsetPixels);
     }
 
     @Override

@@ -5,6 +5,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +25,9 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
 
 
     private TextView stateTV;
+    private ImageView arrowIV;
+
+    private Animation rotateAn;
 
 
     public SimpleHeader(Context context) {
@@ -34,12 +42,19 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
     private void init(Context context) {
         View headView = LayoutInflater.from(context).inflate(R.layout.item_simple_headview, this);
         stateTV = (TextView) headView.findViewById(R.id.state);
+        arrowIV = (ImageView) headView.findViewById(R.id.arrow_image);
+
+        rotateAn = AnimationUtils.loadAnimation(context,R.anim.pull_refresh_arrow_anim);
+        LinearInterpolator linearInterpolator = new LinearInterpolator();
+        rotateAn.setInterpolator(linearInterpolator);
     }
 
 
     @Override
     public void onUIReset() {
         stateTV.setText("下拉刷新");
+        Animation rotoAn = new RotateAnimation(0,-90,0.5f,0.5f);
+        rotoAn.setDuration(100);
     }
 
     @Override
@@ -50,11 +65,15 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
     @Override
     public void onUIRefreshBegin() {
         stateTV.setText("正在刷新");
+        if (rotateAn!=null){
+            arrowIV.startAnimation(rotateAn);
+        }
     }
 
     @Override
     public void onUIRefreshComplete() {
         stateTV.setText("更新完成");
+        arrowIV.clearAnimation();
     }
 
     @Override
@@ -78,7 +97,6 @@ public class SimpleHeader extends RelativeLayout implements HeaderInterface {
                 indicator.setPullStatus(Indicator.STATUS_REFRESH);
                 onUIRefreshBegin();
                 refreshCallBack.onRefreshBegin();
-
             }
 
         }

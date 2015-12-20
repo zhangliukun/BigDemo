@@ -27,7 +27,6 @@ import com.zlk.bigdemo.app.opencv.facedetect.FdActivity;
 import com.zlk.bigdemo.app.opencv.puzzle15.Puzzle15Activity;
 import com.zlk.bigdemo.app.opencv.tutorial1activity.Tutorial1Activity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
-import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
 import java.util.ArrayList;

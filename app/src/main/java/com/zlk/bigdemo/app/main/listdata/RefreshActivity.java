@@ -6,9 +6,9 @@ import android.os.Handler;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.freeza.Freeza;
-import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.PullContainer;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.RefreshCallBack;
-import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.SimpleHeader;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.header.impl.SimpleHeader;
 
 
 /**
@@ -16,7 +16,7 @@ import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.SimpleHeader;
  */
 public class RefreshActivity extends BaseActivity{
 
-    BaseContainer mBaseContainer;
+    PullContainer mPullContainer;
     SimpleHeader simpleHeader;
     Handler mHandler = Freeza.getInstance().getHandler();
 
@@ -29,21 +29,22 @@ public class RefreshActivity extends BaseActivity{
     }
 
     private void initView() {
-        mBaseContainer = (BaseContainer) findViewById(R.id.base_container);
+        mPullContainer = (PullContainer) findViewById(R.id.base_container);
         simpleHeader = new SimpleHeader(this);
-        mBaseContainer.setHeaderView(simpleHeader);
-        mBaseContainer.setRefreshCallBack(new RefreshCallBack() {
+        mPullContainer.setHeaderView(simpleHeader);
+        mPullContainer.setRefreshCallBack(new RefreshCallBack() {
 
             @Override
             public void onRefreshBegin() {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mBaseContainer.refreshComplete();
+                        mPullContainer.refreshComplete();
                     }
                 }, 2000);
             }
         });
+        mPullContainer.setPullResistance(2.8f);
 
 
 

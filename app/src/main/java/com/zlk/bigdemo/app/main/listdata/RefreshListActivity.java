@@ -1,11 +1,7 @@
 package com.zlk.bigdemo.app.main.listdata;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -13,9 +9,9 @@ import android.widget.ListView;
 import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.freeza.Freeza;
-import com.zlk.bigdemo.freeza.widget.pullrefreshview.BaseContainer;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.PullContainer;
 import com.zlk.bigdemo.freeza.widget.pullrefreshview.RefreshCallBack;
-import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.SimpleHeader;
+import com.zlk.bigdemo.freeza.widget.pullrefreshview.header.header.impl.SimpleHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +22,7 @@ import java.util.List;
 public class RefreshListActivity extends BaseActivity{
 
 
-    BaseContainer mBaseContainer;
+    PullContainer mPullContainer;
     ListView mListView;
     List<String> dataList = new ArrayList<String>();
     SimpleHeader simpleHeader;
@@ -43,25 +39,26 @@ public class RefreshListActivity extends BaseActivity{
     }
 
     private void initView() {
-        mBaseContainer = (BaseContainer) findViewById(R.id.base_container);
+        mPullContainer = (PullContainer) findViewById(R.id.base_container);
         mListView = (ListView) findViewById(R.id.myListView);
         simpleHeader = new SimpleHeader(this);
-        mBaseContainer.setHeaderView(simpleHeader);
-        mBaseContainer.setRefreshCallBack(new RefreshCallBack() {
+        mPullContainer.setHeaderView(simpleHeader);
+        mPullContainer.setRefreshCallBack(new RefreshCallBack() {
 
             @Override
             public void onRefreshBegin() {
 
-                Log.i("network","Refresh Start");
+                Log.i("network", "Refresh Start");
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mBaseContainer.refreshComplete();
+                        mPullContainer.refreshComplete();
                         Log.i("network", "Refresh end");
                     }
-                }, 8000);
+                }, 3000);
             }
         });
+        mPullContainer.setPullResistance(2.8f);
     }
 
     private void initData() {

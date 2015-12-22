@@ -8,7 +8,14 @@
         android:id="@+id/headImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        fresco:placeholderImage="@drawable/xx_plus_tp"
-        />
+        fresco:placeholderImage="@drawable/xx_plus_tp"/>
+
+    <com.zlk.bigdemo.freeza.widget.round.CommonRing
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        fresco:commonRingRoundColor="@color/grey"
+        fresco:commonRingRoundProgressColor="@color/green"
+        fresco:commonRingType="STROKE"
+        fresco:commonRingRoundWidth="2dp" />
 
 </LinearLayout>

@@ -13,4 +13,15 @@
         <attr name="layoutMarginRight" format="dimension|reference"/>
     </declare-styleable>
 
+    <declare-styleable name="CommonRing">
+        <attr name="commonRingRoundColor" format="color"/>
+        <attr name="commonRingRoundProgressColor" format="color" />
+        <attr name="commonRingRoundWidth" format="dimension"/>
+        <attr name="commonRingMax" format="integer"/>
+        <attr name="commonRingType">
+            <enum name="STROKE" value="1"></enum>
+            <enum name="FILL" value="0"></enum>
+        </attr>
+    </declare-styleable>
+
 </resources>

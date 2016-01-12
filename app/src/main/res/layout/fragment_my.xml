@@ -11,8 +11,17 @@
         fresco:placeholderImage="@drawable/xx_plus_tp"/>
 
     <com.zlk.bigdemo.freeza.widget.round.CommonRing
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/commonRing1"
+        fresco:commonRingRoundColor="@color/grey"
+        fresco:commonRingRoundProgressColor="@color/green"
+        fresco:commonRingType="STROKE"
+        fresco:commonRingRoundWidth="2dp" />
+    <com.zlk.bigdemo.freeza.widget.round.CommonRing
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/commonRing2"
         fresco:commonRingRoundColor="@color/grey"
         fresco:commonRingRoundProgressColor="@color/green"
         fresco:commonRingType="STROKE"

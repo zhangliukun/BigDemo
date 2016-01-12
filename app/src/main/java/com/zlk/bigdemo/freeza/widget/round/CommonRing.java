@@ -2,9 +2,12 @@ package com.zlk.bigdemo.freeza.widget.round;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -29,6 +32,8 @@ public class CommonRing extends View{
     private int progressCurrent;
     private int style;
 
+    private Bitmap bitmap;
+
 
     public CommonRing(Context context) {
         this(context, null);
@@ -36,7 +41,7 @@ public class CommonRing extends View{
 
     public CommonRing(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context,attrs);
+        init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -59,7 +64,15 @@ public class CommonRing extends View{
         initial();
         drawCircle(canvas);
         drawOval(canvas);
+        drawCenterBitmap(canvas);
+    }
 
+    private void drawCenterBitmap(Canvas canvas) {
+        if (this.bitmap!=null){
+            //canvas.drawBitmap(this.bitmap,0,0,mPaint);
+            Rect fitRect = new Rect(0,0,getWidth(),getHeight());
+            canvas.drawBitmap(this.bitmap,null,fitRect,mPaint);
+        }
     }
 
     private void initial() {
@@ -88,6 +101,9 @@ public class CommonRing extends View{
         canvas.drawCircle(roundCenter, roundCenter, radius, mPaint);
     }
 
+    public void setCenterBitmap(int resourceId) {
+        this.bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+    }
 
     public int getRoundColor() {
         return roundColor;

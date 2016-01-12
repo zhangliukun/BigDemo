@@ -13,6 +13,7 @@ import com.zlk.bigdemo.R;
 import com.zlk.bigdemo.app.BaseActivity.OnActivityResultListener;
 import com.zlk.bigdemo.app.BaseFragment;
 import com.zlk.bigdemo.app.main.MainActivity;
+import com.zlk.bigdemo.freeza.widget.round.CommonRing;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
 
@@ -34,6 +35,13 @@ public class MyFragment extends BaseFragment implements OnActivityResultListener
     @Bind(R.id.headImage)
     SimpleDraweeView headImage;
 
+    @Bind(R.id.commonRing1)
+    CommonRing commonRing1;
+
+    @Bind(R.id.commonRing2)
+    CommonRing commonRing2;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,7 +52,14 @@ public class MyFragment extends BaseFragment implements OnActivityResultListener
         View view = inflater.inflate(R.layout.fragment_my, container,false);
         ButterKnife.bind(this,view);
 
+        initView();
+
         return view;
+    }
+
+    private void initView() {
+        commonRing1.setCenterBitmap(R.drawable.yb_list_ic_qbyd);
+        commonRing2.setCenterBitmap(R.drawable.yb_list_ic_wd);
     }
 
     @OnClick(R.id.headImage)

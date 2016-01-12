@@ -1,7 +1,11 @@
 package com.zlk.bigdemo.app.main;
 
 import android.app.Activity;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
@@ -70,7 +74,55 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         initView();
         initDatas();
 
+        //checkContacts();
+
     }
+
+//    private void checkContacts() {
+//
+//        String name = "集团彩云";
+//
+//        String[] projection = { ContactsContract.Data.RAW_CONTACT_ID,ContactsContract.PhoneLookup.DISPLAY_NAME,
+//                ContactsContract.CommonDataKinds.Phone.NUMBER };
+//
+//        Cursor cursor = getContentResolver().query(
+//                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+//                projection, // Which columns to return.
+//                ContactsContract.Contacts.DISPLAY_NAME + " = '"
+//                        + name + "'", // WHERE clause.
+//                null, // WHERE clause value substitution
+//                null); // Sort order.
+//
+//        if (cursor == null) {
+//            return;
+//        }
+//        if (cursor.getCount()>2){
+//            if (cursor.moveToFirst()){
+//                do {
+//                    removeContactField(getContentResolver(),cursor.getLong(cursor.getColumnIndex(ContactsContract.Data.RAW_CONTACT_ID)));
+//                }while (cursor.moveToNext());
+//            }
+//        }
+//
+//    }
+//
+//    public static void removeContactField(ContentResolver contentResolver, long id) {
+//        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+//
+//        ops.add(ContentProviderOperation
+//                .newDelete(ContactsContract.RawContacts.CONTENT_URI)
+//                .withSelection(
+//                        ContactsContract.RawContacts.CONTACT_ID+"="+id,
+//                        null).build());
+//
+//        try {
+//            contentResolver.applyBatch(ContactsContract.AUTHORITY, ops);
+//            Log.i("delete success", "delete Contact field successfully");
+//        } catch (Exception e) {
+//            Log.i("delete contact", "Can't delete Contact field.");
+//        }
+//    }
+
 
     private void initView() {
         mToolbar.setTitle("zalezone");

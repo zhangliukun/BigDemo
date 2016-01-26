@@ -14,36 +14,6 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_action_opencv"
-        android:orderInCategory="100"
-        android:title="调用opencv"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_puzzle_activity"
-        android:orderInCategory="100"
-        android:title="puzzle15"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_cameracalibration"
-        android:orderInCategory="100"
-        android:title="cameracalibration"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/color_blob_detection"
-        android:orderInCategory="100"
-        android:title="color_blob_detection"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/face_detection"
-        android:orderInCategory="100"
-        android:title="face_detection"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/full_screen_view"
         android:orderInCategory="100"
         android:title="全屏录音"

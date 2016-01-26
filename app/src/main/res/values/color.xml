@@ -2,6 +2,7 @@
 <resources>
 
     <color name="white">#ffffff</color>
+    <color name="white_gray">#aba6a6</color>
 
     <color name="toolbar_bg">#4876FF</color>
     <color name="state_title_bg">#3A5FCD</color>
@@ -12,109 +13,20 @@
     <color name="voice_listen">#fa565a</color>
 
 
-    <color name="allBackgroundColor">#f0f0f3</color>
-    <color name="youban_note_light_red">#fca7a8</color>
-    <color name="youban_note_light_gray">#eeeeee</color>
-    <color name="youban_popupwindow_divider">#d6d6d6</color>
-    <color name="youban_popupwindow_text_red">#fa565a</color>
-    <color name="top_grade_color">#ffffff</color>
-    <color name="refresh_head_color">#505253</color>
     <color name="note_text_desktop_color">#ff80777f</color>
 
     <color name="transparent">#00000000</color>
-    <color name="transparentActivity">#e6ffffff</color>
-    <color name="blue">#ff0e13ff</color>
     <color name="black">#000000</color>
     <color name="title_btn_pressed">#e3e3e3</color>
-    <color name="quit_red">#fa565a</color>
-    <color name="ad_background">#e9e9e9</color>
     <color name="ad_text_color">#222222</color>
-    <color name="commone_text_pressed">#F3F3F3</color>
-    <color name="ad_black_bg">#282828</color>
-    <color name="top_bar_bg">#ffe9595f</color>
     <color name="grey">#ffacacac</color>
-    <color name="round_color">#dce4d9</color>
-    <color name="recycleview_divider">#000000</color>
-    <color name="avatar_download_bg">#b8b8b8</color>
-    <color name="common_divider_color">#b4b4b4</color>
-    <color name="halftransparent">#7F000000</color>
-    <color name="top_bar_myinfo_bg">#fff7f6f5</color>
-    <color name="myinfo_bg">#ffe3e3e3</color>
-    <color name="light_blue">#ff4896d0</color>
-    <color name="sky_blue">#ff1f8bc4</color>
-    <color name="titleTextColor">#ffffff</color>
-    <color name="youban_topbar_bg">#f7f7f7</color>
-    <color name="youban_content_bg">#e9e9e9</color>
-    <color name="menu_youban_bg">#fffdfdfe</color>
-    <color name="red">#fff96164</color>
-    <color name="transparent_red">#fff86d6f</color>
-    <color name="light_red">#77f86d6f</color>
     <color name="green">#ff58ce2e</color>
-    <color name="light_gray">#fff1f1f1</color>
-    <color name="chat_name">#9c9c9c</color>
-    <color name="dialog_confirm_pressed">#dbdbdb</color>
 
-    <color name="hand_lock_bg_top">#3e3234</color>
-    <color name="hand_lock_bg_buttom">#483a3c</color>
-
-    <color name="white_press">#d7d7d7</color>
-    <color name="schedule_time_mor">#fc676a</color>
-    <color name="schedule_time_aft">#ff8285</color>
     <color name="schedule_time_eve">#fda4a5</color>
 
-    <color name="holo_blue">#FF33E5B5</color>
-    <color name="tab_text_normal">#8b868d</color>
-
-    <color name="common_list_item_bg">#fff</color>
-    <color name="common_list_item_bg_press">#88f9f9fa</color>
-    <color name="schedule_hint_text_color">#FF425D</color>
-    <color name="schedule_gray_bg">#ffeDeDeD</color>
-    <color name="youban_title_color">#fffa565a</color>
-    <color name="theme_color">#fff76c6f</color>
-    <color name="dialog_text_color">#ff383838</color>
-    <color name="note_option_color">#9b9b9b</color>
-    <color name="note_filter_color">#fa565a</color>
-    <color name="youban_finish_gray">#a9a9a9</color>
-    <color name="youban_title_can_release">#483a3c</color>
-    <color name="youban_title_cannot_release">#cdcacb</color>
-    <color name="youban_text_content_color">#222222</color>
-    <color name="youban_divider_color">#cecece</color>
     <color name="youban_background">#f2f2f2</color>
-    <color name="youban_textview_red_color">#fa565a</color>
-    <color name="youban_time_gray">#b4b4b4</color>
-    <color name="youban_annnouncement_content">#616161</color>
-    <color name="highlight_text">#ff7174</color>
-
-    <color name="rippelColor">#0099CC</color>
-    <drawable name="item_click">#ffffff</drawable>
-    <color name="open">#0093ff</color>
-    <color name="close">#6d6d6d</color>
-    <color name="setTextSize">#36a4fb</color>
-    <color name="Black">#000000</color>
-    <color name="Customed">#505051</color>
-    <color name="transparent_background">#50000000</color>
-    <color name="tab_text_n">#777777</color>
-    <color name="tab_text_p">#aaadad</color>
-    <color name="DarkRed">#8B0000</color>
-    <color name="Red">#FF0000</color>
-    <color name="hand_lockl_operation">#958484</color>
-    <color name="hand_lock_tips">#eed6d6</color>
-    <drawable name="button_text_color">#1780bc</drawable>
-    <drawable name="button_text_color_black">#444444</drawable>
 
     <!--disk-->
-    <color name="message1">#5cc8ef</color>
     <color name="message2">#86d2ed</color>
-    <color name="message3">#c4e2ed</color>
-    <color name="can_operating">#483a3c</color>
-    <color name="can_not_operating">#a29e9f</color>
-    <color name="current_org_name">#f75857</color>
-    <color name="grey_transparent">#88acacac</color>
-    <color name="guide_bg">#fff8f8f8</color>
 
-    <color name="chat_link_red_bg">#0069a6</color>
-    <color name="chat_link_white_bg">#00a5e0</color>
-
-    <color name="tab_text_color">#8b868d</color>
-    <color name="youban_nodata_tips">#939392</color>
 </resources>

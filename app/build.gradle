@@ -36,7 +36,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.facebook.fresco:fresco:0.6.1+'
-    compile project(':openCVLibrary300')
+    compile 'com.facebook.fresco:fresco:0.8.1+'
 
 }

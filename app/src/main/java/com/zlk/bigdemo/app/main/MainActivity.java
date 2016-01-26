@@ -5,6 +5,10 @@ import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +22,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.zlk.bigdemo.R;
+import com.zlk.bigdemo.android.camera.BitmapManager;
 import com.zlk.bigdemo.app.BaseActivity;
 import com.zlk.bigdemo.app.main.fragment.MyFragment;
 import com.zlk.bigdemo.app.main.fragment.SecondFragment;
@@ -25,11 +30,6 @@ import com.zlk.bigdemo.app.main.fragment.ThirdFragment;
 import com.zlk.bigdemo.app.main.listdata.RefreshActivity;
 import com.zlk.bigdemo.app.main.listdata.RefreshListActivity;
 import com.zlk.bigdemo.app.main.record.RecordActivity;
-import com.zlk.bigdemo.app.opencv.cameracalibration.CameraCalibrationActivity;
-import com.zlk.bigdemo.app.opencv.colorblobdetect.ColorBlobDetectionActivity;
-import com.zlk.bigdemo.app.opencv.facedetect.FdActivity;
-import com.zlk.bigdemo.app.opencv.puzzle15.Puzzle15Activity;
-import com.zlk.bigdemo.app.opencv.tutorial1activity.Tutorial1Activity;
 import com.zlk.bigdemo.freeza.util.CameraUtils;
 import com.zlk.bigdemo.freeza.widget.selector.MultiPictureSelectorActivity;
 
@@ -71,64 +71,28 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        initToolBar();
         initView();
         initDatas();
-
-        //checkContacts();
-
     }
 
-//    private void checkContacts() {
-//
-//        String name = "集团彩云";
-//
-//        String[] projection = { ContactsContract.Data.RAW_CONTACT_ID,ContactsContract.PhoneLookup.DISPLAY_NAME,
-//                ContactsContract.CommonDataKinds.Phone.NUMBER };
-//
-//        Cursor cursor = getContentResolver().query(
-//                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-//                projection, // Which columns to return.
-//                ContactsContract.Contacts.DISPLAY_NAME + " = '"
-//                        + name + "'", // WHERE clause.
-//                null, // WHERE clause value substitution
-//                null); // Sort order.
-//
-//        if (cursor == null) {
-//            return;
-//        }
-//        if (cursor.getCount()>2){
-//            if (cursor.moveToFirst()){
-//                do {
-//                    removeContactField(getContentResolver(),cursor.getLong(cursor.getColumnIndex(ContactsContract.Data.RAW_CONTACT_ID)));
-//                }while (cursor.moveToNext());
-//            }
-//        }
-//
-//    }
-//
-//    public static void removeContactField(ContentResolver contentResolver, long id) {
-//        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-//
-//        ops.add(ContentProviderOperation
-//                .newDelete(ContactsContract.RawContacts.CONTENT_URI)
-//                .withSelection(
-//                        ContactsContract.RawContacts.CONTACT_ID+"="+id,
-//                        null).build());
-//
-//        try {
-//            contentResolver.applyBatch(ContactsContract.AUTHORITY, ops);
-//            Log.i("delete success", "delete Contact field successfully");
-//        } catch (Exception e) {
-//            Log.i("delete contact", "Can't delete Contact field.");
-//        }
-//    }
-
+    private void initToolBar(){
+        mToolbar.setTitle("zalezone");
+        mToolbar.setTitleTextColor(R.color.white_gray);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.toux);
+//        Matrix matrix = new Matrix();
+//        int edgeLength = (int)getResources().getDimension(R.dimen.toolBar_height);
+//        matrix.postScale(getResources().getDimension(R.dimen.toolBar_height),getResources().getDimension(R.dimen.toolBar_height));
+//        Bitmap.createBitmap(bitmap,0,0,edgeLength,edgeLength,matrix,true);
+//        mToolbar.setLogo(R.drawable.toux_small);
+        mToolbar.setSubtitle("china");// 标题的文字需在setSupportActionBar之前，不然会无效
+        mToolbar.setSubtitleTextColor(getResources().getColor(R.color.white_gray));
+        mToolbar.setPadding((int)getResources().getDimension(R.dimen.toolBar_padding_left),0, 0,0);
+        setSupportActionBar(mToolbar);
+    }
 
     private void initView() {
-        mToolbar.setTitle("zalezone");
-        mToolbar.setLogo(R.drawable.ic_launcher);
-        mToolbar.setSubtitle("china");// 标题的文字需在setSupportActionBar之前，不然会无效
-        setSupportActionBar(mToolbar);
+
         final Activity activity = this;
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -137,26 +101,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     case R.id.menu_action_add_picture:
                         //MultiPictureSelectorActivity.startActivity(this,MultiPictureSelectorActivity.REQUEST_CODE);
                         MultiPictureSelectorActivity.startActivity(activity, 0, CameraUtils.REQUEST_PHOTO_LIBRARY, 9);
-                        break;
-                    case R.id.menu_action_opencv:
-                        Intent opencv = new Intent(activity, Tutorial1Activity.class);
-                        startActivity(opencv);
-                        break;
-                    case R.id.menu_puzzle_activity:
-                        Intent puzzleActivity = new Intent(activity, Puzzle15Activity.class);
-                        startActivity(puzzleActivity);
-                        break;
-                    case R.id.menu_cameracalibration:
-                        Intent calibrate = new Intent(activity, CameraCalibrationActivity.class);
-                        startActivity(calibrate);
-                        break;
-                    case R.id.color_blob_detection:
-                        Intent colorDetection = new Intent(activity, ColorBlobDetectionActivity.class);
-                        startActivity(colorDetection);
-                        break;
-                    case R.id.face_detection:
-                        Intent faceDetection = new Intent(activity, FdActivity.class);
-                        startActivity(faceDetection);
                         break;
                     case R.id.full_screen_view:
                         Intent fullRecroid = new Intent(activity, RecordActivity.class);
@@ -324,13 +268,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
-//    private void changeHeadImage(){
-//        MultiPictureSelectorActivity.startSingleActivity(getActivity(), MultiPictureSelectorActivity.REQUEST_CODE);
-//    }
 }
